@@ -30,6 +30,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-user" name="tanggallahir" id="tanggallahir" placeholder="Tanggal" autocomplete="off">
                                     </div>
+                                    <?= form_error('tanggallahir', '<small class="text-danger pl-3">', '</small>'); ?>
                                     <!-- /.input group -->
                                 </div>
 
