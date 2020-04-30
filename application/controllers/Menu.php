@@ -27,4 +27,16 @@ class Menu extends CI_Controller
             redirect('menu');
         }
     }
+
+    public function submenu()
+    {
+        $data['title'] = "Manajemen Submenu";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('menu/submenu', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }
