@@ -15,12 +15,23 @@
                                     <div class="text-center text-dark">
                                         <h1 class="h3 font-weight-bolder mb-4">Halaman Login</h1>
                                     </div>
-                                    <form class="user">
+
+                                    <?php if ($this->session->flashdata('category_success')) : ?>
+                                        <div class="alert alert-success" role="alert"> <?= $this->session->flashdata('category_success') ?> </div>
+                                    <?php endif; ?>
+
+                                    <?php if ($this->session->flashdata('category_error')) : ?>
+                                        <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
+                                    <?php endif; ?>
+
+                                    <form class="user" method="POST" action="<?= base_url('auth'); ?>">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="username" nama="username" placeholder="Masukkan Username Anda...">
+                                            <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Masukkan Username Anda..." value="<?= set_value('username'); ?>">
+                                            <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Masukkan Password Anda">
+                                            <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block mb-5">
