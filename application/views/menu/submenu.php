@@ -16,7 +16,7 @@
                 <div class="alert alert-success" role="alert"> <?= $this->session->flashdata('category_success') ?> </div>
             <?php endif; ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahSubMenuModal">Tambah Submenu Baru</a>
+            <a href="<?= base_url('menu/submenu'); ?>" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahSubMenuModal">Tambah Submenu Baru</a>
 
             <table class="table table-hover">
                 <thead>
@@ -72,7 +72,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('menu/submenu'); ?>" method="POST">
+            <form action="<?= base_url('menu/submenu/'); ?>" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title">
