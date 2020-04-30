@@ -70,6 +70,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('nik', 'Nik', 'required|trim|numeric|is_unique[user.nik]');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+        $this->form_validation->set_rules('tanggallahir', 'Tanggal Lahir', 'required|trim');
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'Email telah digunakan'
@@ -105,7 +106,7 @@ class Auth extends CI_Controller
                 'alamat' => htmlspecialchars($this->input->post('alamat', true)),
                 'nik' => htmlspecialchars($this->input->post('nik', true)),
                 'tanggallahir' => htmlspecialchars($this->input->post('tanggallahir', true)),
-                'role_id' => 2,
+                'role_id' => 3,
                 'is_active' => 1,
                 'date_created' => time()
             ];
@@ -123,5 +124,22 @@ class Auth extends CI_Controller
 
         $this->session->set_flashdata('category_success', 'Anda Berhasil Logout');
         redirect('auth');
+    }
+
+    public function blocked()
+    {
+        $role_id = $this->session->userdata('role_id');
+
+        if ($role_id == 1) {
+            $backTo = 'admin';
+        } else if ($role_id == 2) {
+            $backTo = 'dokter';
+        } else {
+            $backTo = 'pasien';
+        }
+
+        $data['backTo'] = $backTo;
+
+        $this->load->view('auth/blocked', $data);
     }
 }
