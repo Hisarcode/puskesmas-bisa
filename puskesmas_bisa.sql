@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Bulan Mei 2020 pada 04.02
+-- Waktu pembuatan: 01 Bulan Mei 2020 pada 07.36
 -- Versi server: 10.1.39-MariaDB
 -- Versi PHP: 7.3.5
 
@@ -32,6 +32,7 @@ CREATE TABLE `antrian` (
   `id` int(11) NOT NULL,
   `dokter_id` int(11) NOT NULL,
   `pasien_id` int(11) NOT NULL,
+  `no_antrian` varchar(128) NOT NULL,
   `tanggal` varchar(128) NOT NULL,
   `status` int(1) NOT NULL,
   `jam` varchar(128) NOT NULL
@@ -59,8 +60,7 @@ CREATE TABLE `dokter` (
 CREATE TABLE `obat` (
   `id` int(11) NOT NULL,
   `nama_obat` varchar(128) NOT NULL,
-  `produsen` varchar(128) NOT NULL,
-  `jenis` varchar(128) NOT NULL
+  `jenis_obat` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -73,6 +73,7 @@ CREATE TABLE `pasien` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `pekerjaan` varchar(128) NOT NULL,
+  `gol_darah` varchar(4) NOT NULL,
   `rekam_medik_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -105,6 +106,8 @@ CREATE TABLE `resep` (
   `obat_id` int(11) NOT NULL,
   `pasien_id` int(11) NOT NULL,
   `date_created` varchar(128) NOT NULL,
+  `date_expired` varchar(128) NOT NULL,
+  `is_active` int(1) NOT NULL,
   `catatan_dokter` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -121,7 +124,9 @@ CREATE TABLE `surat_rujukan` (
   `dokter_id` int(11) NOT NULL,
   `tujuan` varchar(128) NOT NULL,
   `date_created` varchar(128) NOT NULL,
-  `keterangan` varchar(128) NOT NULL
+  `date_expired` varchar(128) NOT NULL,
+  `keterangan` varchar(128) NOT NULL,
+  `is_active` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -134,6 +139,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `nama` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
+  `nomor_telepon` varchar(128) NOT NULL,
   `image` varchar(128) NOT NULL,
   `username` varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
@@ -149,13 +155,14 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `email`, `image`, `username`, `password`, `nik`, `tanggallahir`, `alamat`, `role_id`, `is_active`, `date_created`) VALUES
-(6, 'Gusti Muhammad Furkan Azmi', 'gusti@gmail.com', 'default.jpg', 'kopibos', '$2y$10$c69ZqGpI2JOEWsrgj3.fCuTw/S0ZjbRKVY9SYkS2JSJDCEXYQDLQm', '123456789012341', '04/28/1999', 'Jalan Parit Haji Husein', 1, 1, 1588144092),
-(7, 'Hisarman Saragih', 'hisarcode@gmail.com', 'default.jpg', 'Hisaragih22', '$2y$10$d4eRy3jnL5KJ1EsqpFlnsOybQSqcVXoYkMZATgoGcunwPtXG/Oz6q', '6104173008990003', '', 'Jalan Pak Tani', 2, 1, 1588156436),
-(8, 'Juan Martin Indrajaya Limas', 'martinjuan09@student.untan.ac.id', 'default.jpg', 'juanmli', '$2y$10$HN2eAE9CvLuN5JyCCGrM1ek81mDrmt8AjCsjuh8DuNclJp/0zEuJy', '123456789012345', '03/03/1999', 'Jalan Gading Garden', 3, 1, 1588280489),
-(9, 'Nadya Lestari', 'nadya@gmail.com', 'default.jpg', 'nadyalestari', '$2y$10$w6ZDnbVmKYFz8QzF0dfVAuPrQopwrzxuZ7PHv/.aAIeHzZlUwu1zu', '123456789012349', '', 'Jalan Teuku Umar', 3, 1, 1588280565),
-(10, 'Nur Fajriyani', 'nurfajriyani16@student.untan.ac.id', 'default.jpg', 'nurfajriyani16', '$2y$10$HN2eAE9CvLuN5JyCCGrM1ek81mDrmt8AjCsjuh8DuNclJp/0zEuJy', '123456789012322', '06/16/1999', 'Jalan Sekadau', 3, 1, 1588280887),
-(11, 'Dinanda De Paguita', 'dinandadepaguita@gmail.com', 'default.jpg', 'dinandadp', '$2y$10$Iy3fo7J3PFg/rvLJNd3V2us2oHM9i53JWL2lFJV7OAjUQclpGssi6', '1234567890123455', '04/10/2020', 'Desa Kapur', 3, 1, 1588298267);
+INSERT INTO `user` (`id`, `nama`, `email`, `nomor_telepon`, `image`, `username`, `password`, `nik`, `tanggallahir`, `alamat`, `role_id`, `is_active`, `date_created`) VALUES
+(6, 'Gusti Muhammad Furkan Azmi', 'gusti@gmail.com', '', 'default.jpg', 'kopibos', '$2y$10$c69ZqGpI2JOEWsrgj3.fCuTw/S0ZjbRKVY9SYkS2JSJDCEXYQDLQm', '123456789012341', '04/28/1999', 'Jalan Parit Haji Husein', 1, 1, 1588144092),
+(7, 'Hisarman Saragih', 'hisarcode@gmail.com', '', 'default.jpg', 'Hisaragih22', '$2y$10$d4eRy3jnL5KJ1EsqpFlnsOybQSqcVXoYkMZATgoGcunwPtXG/Oz6q', '6104173008990003', '', 'Jalan Pak Tani', 2, 1, 1588156436),
+(8, 'Juan Martin Indrajaya Limas', 'martinjuan09@student.untan.ac.id', '', 'default.jpg', 'juanmli', '$2y$10$HN2eAE9CvLuN5JyCCGrM1ek81mDrmt8AjCsjuh8DuNclJp/0zEuJy', '123456789012345', '03/03/1999', 'Jalan Gading Garden', 3, 1, 1588280489),
+(9, 'Nadya Lestari', 'nadya@gmail.com', '', 'default.jpg', 'nadyalestari', '$2y$10$w6ZDnbVmKYFz8QzF0dfVAuPrQopwrzxuZ7PHv/.aAIeHzZlUwu1zu', '123456789012349', '', 'Jalan Teuku Umar', 3, 1, 1588280565),
+(10, 'Nur Fajriyani', 'nurfajriyani16@student.untan.ac.id', '', 'default.jpg', 'nurfajriyani16', '$2y$10$HN2eAE9CvLuN5JyCCGrM1ek81mDrmt8AjCsjuh8DuNclJp/0zEuJy', '123456789012322', '06/16/1999', 'Jalan Sekadau', 3, 1, 1588280887),
+(11, 'Dinanda De Paguita', 'dinandadepaguita@gmail.com', '', 'default.jpg', 'dinandadp', '$2y$10$Iy3fo7J3PFg/rvLJNd3V2us2oHM9i53JWL2lFJV7OAjUQclpGssi6', '1234567890123455', '04/10/2020', 'Desa Kapur', 3, 1, 1588298267),
+(12, 'Mario', 'hisarce@gmail.com', '', 'default.jpg', 'mariokr', '$2y$10$cAsmvtlwmIgcj32lbXfNr.yCerMykM1q3VoaYGRd3VPq0z1.9VOr2', '123456789012367', '05/03/2001', 'Jalan Apel', 3, 1, 1588302706);
 
 -- --------------------------------------------------------
 
@@ -387,7 +394,7 @@ ALTER TABLE `surat_rujukan`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_menu`
