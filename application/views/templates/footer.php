@@ -48,6 +48,13 @@
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
+<!-- Untuk AJAX UBAH DATA -->
+
+<script src="<?= base_url(); ?>assets/js/jquery-3.2.1.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/popper.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/script.js"></script>
+
+
 <script>
     $('.form-check-input').on('click', function() {
         const menuId = $(this).data('menu');
