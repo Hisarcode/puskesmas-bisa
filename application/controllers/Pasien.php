@@ -20,4 +20,15 @@ class Pasien extends CI_Controller
         $this->load->view('pasien/index', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function antrian(){
+        $data['title'] = "Antrian";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['antrian'] = $this->db->get('antrian')->result_array();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pasien/antrian', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }
