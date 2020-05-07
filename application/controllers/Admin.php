@@ -97,4 +97,15 @@ class Admin extends CI_Controller
             redirect('menu');
         } */
     }
+
+    public function suratrujukan()
+    {
+        $data['title'] = "Surat Rujukan";
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('suratrujukan', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }
