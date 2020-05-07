@@ -16,7 +16,11 @@
                 <div class="alert alert-success" role="alert"> <?= $this->session->flashdata('category_success') ?> </div>
             <?php endif; ?>
 
-            <a href="<?= base_url('menu/submenu'); ?>" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahSubMenuModal">Tambah Submenu Baru</a>
+            <?php if ($this->session->flashdata('category_error')) : ?>
+                <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
+            <?php endif; ?>
+
+            <a href="<?= base_url('menu/submenu'); ?>" class="btn btn-primary mb-3 tambahSubMenuBtn" data-toggle="modal" data-target="#tambahSubMenuModal">Tambah Submenu Baru</a>
 
             <table class="table table-hover">
                 <thead>
@@ -42,8 +46,8 @@
                             <td><?= $sm['icon']; ?></td>
                             <td><?= $sm['is_active']; ?></td>
                             <td>
-                                <a href="" class="badge badge-success">Edit</a>
-                                <a href="" class="badge badge-danger">Delete</a>
+                                <a href="<?= base_url(); ?>menu/editsubmenu/<?= $sm['id']; ?>" class="badge badge-success tampilModalEditSubMenu" data-toggle="modal" data-target="#tambahSubMenuModal" data-id="<?= $sm['id']; ?>">Edit</a>
+                                <a href="<?= base_url(); ?>menu/deletesubmenu/<?= $sm['id']; ?>" class="badge badge-danger" onclick="return confirm('Yakin?');">Delete</a>
                             </td>
                         </tr>
                         <?php $i++;  ?>
@@ -72,8 +76,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('menu/submenu/'); ?>" method="POST">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form action="<?= base_url('menu/submenu/'); ?>" method="POST">
+                    <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <input type="text" class="form-control" id="title" name="title" placeholder="Sub Menu Title">
                     </div>
@@ -101,13 +106,12 @@
                             <label for="is_active" class="form-check-label">Active</label>
                         </div>
                     </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
