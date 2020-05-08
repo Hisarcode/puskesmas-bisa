@@ -17,12 +17,9 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">ID Dokter</th>
-                        <th scope="col">ID Pasien</th>
-                        <th scope="col">Nomor Antrian</th>
-                        <th scope="col">Tanggal</th>
-                        <th scope="col">Status</th>
                         <th scope="col">Jam</th>
+                        <th scope="col">Nama Dokter</th>
+                        <th scope="col">Spesialis</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -31,16 +28,11 @@
                     <?php foreach ($antrian as $ant) : ?>
                         <tr>
                             <th scope="row"><?= $i; ?></th>
-                            <td><?= $ant['dokter_id']; ?></td>
-                            <td><?= $ant['pasien_id']; ?></td>
-                            <td><?= $ant['no_antrian']; ?></td>
-                            <td><?= $ant['tanggal']; ?></td>
-                            <td><?= $ant['status']; ?></td>
                             <td><?= $ant['jam']; ?></td>
+                            <td><?= $ant['nama_gelar']; ?></td>
+                            <td><?= $ant['jenis_dokter']; ?></td>
                             <td>
-                                <a href="" class="badge badge-primary">Detail</a>
-                                <a href="" class="badge badge-success">Edit</a>
-                                <a href="" class="badge badge-danger">Delete</a>
+                                <a href="<?= base_url()?>pasien/buat_antrian" class="badge badge-success">+ Buat Antrian</a>
                             </td>
                         </tr>
                         <?php $i++;  ?>
