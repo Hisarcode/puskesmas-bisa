@@ -34,11 +34,12 @@ class Pasien extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function buat_antrian(){
+    public function buat_antrian($id){
         $this->load->model('Antrian_m');
         $data['title'] = "Buat Antrian";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         // $data['antrian'] = $this->db->get('dokter')->result_array();
+        $data['dokter'] = $this->Antrian_m->getJadwalById($id);
         $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
         $this->form_validation->set_rules('nama_dokter', 'Nama Dokter', 'required');
         $this->form_validation->set_rules('spesialis', 'Spesialis', 'required');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2020 at 08:57 AM
+-- Generation Time: May 08, 2020 at 05:56 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -48,17 +48,16 @@ CREATE TABLE `dokter` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `nama_gelar` varchar(128) NOT NULL,
-  `jenis_dokter` varchar(128) NOT NULL,
-  `jam` varchar(10) NOT NULL
+  `jenis_dokter` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dokter`
 --
 
-INSERT INTO `dokter` (`id`, `user_id`, `nama_gelar`, `jenis_dokter`, `jam`) VALUES
-(1, 1, 'dr. Hisarman Saragih', 'Poli Umum', '09.00'),
-(2, 2, 'dr. Maliki', 'Poli Gigi', '09.00');
+INSERT INTO `dokter` (`id`, `user_id`, `nama_gelar`, `jenis_dokter`) VALUES
+(1, 1, 'dr. Hisarman Saragih', 'Poli Umum'),
+(2, 2, 'dr. Maliki', 'Poli Gigi');
 
 -- --------------------------------------------------------
 
@@ -85,6 +84,13 @@ CREATE TABLE `pasien` (
   `gol_darah` varchar(4) NOT NULL,
   `rekam_medik_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pasien`
+--
+
+INSERT INTO `pasien` (`id`, `user_id`, `pekerjaan`, `gol_darah`, `rekam_medik_id`) VALUES
+(1, 12, 'mahasiswa', 'A', 1);
 
 -- --------------------------------------------------------
 
@@ -380,7 +386,7 @@ ALTER TABLE `obat`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rekam_medik`
