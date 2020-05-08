@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-6">
             <form action="" method="POST"> <!-- pasien/antrian -->
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="pasien_id">Id Pasien</label>
                     <input type="text" class="form-control" id="pasien_id" name="pasien_id" value="<?= $user['id']?>">
                     <small class="form-text text-danger"><?= form_error('pasien_id')?></small>
@@ -17,7 +17,7 @@
                     <input type="text" class="form-control" id="nama_pasien" name="nama_pasien">
                     <small class="form-text text-danger"><?= form_error('nama_pasien')?></small>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="dokter_id">Id Dokter</label>
                     <input type="text" class="form-control" id="dokter_id" name="dokter_id" value="<?= $dokter['user_id']?>">
                     <small class="form-text text-danger"><?= form_error('dokter_id')?></small>
