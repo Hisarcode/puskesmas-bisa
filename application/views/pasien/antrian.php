@@ -6,10 +6,6 @@
 
     <div class="row">
         <div class="col-lg">
-            <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?php if ($this->session->flashdata('category_error')) : ?>
-                <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
-            <?php endif; ?>
 
             <a href="<?= base_url()?>pasien/lihat_antrian/" class="btn btn-primary mb-3" >Lihat Antrian</a>
 

@@ -70,9 +70,10 @@ class Pasien extends CI_Controller
     }
 
     public function rekammedik() {
+        $this->load->model('Rekam_Medik_m');
         $data['title'] = "Rekam Medik";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
+        $data['history'] = $this->Rekam_Medik_m->getHistory();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
