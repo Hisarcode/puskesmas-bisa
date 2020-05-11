@@ -25,7 +25,7 @@ class Pasien extends CI_Controller
         $this->load->model('Antrian_m');
         $data['title'] = "Antrian";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['antrian'] = $this->Antrian_m->getJadwal();
+        $data['jadwal'] = $this->Antrian_m->getJadwal();
         // $data['antrian'] = $this->db->get('dokter')->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -41,8 +41,8 @@ class Pasien extends CI_Controller
         // $data['antrian'] = $this->db->get('dokter')->result_array();
         $data['dokter'] = $this->Antrian_m->getJadwalById($id);
         $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
-        $this->form_validation->set_rules('nama_dokter', 'Nama Dokter', 'required');
-        $this->form_validation->set_rules('spesialis', 'Spesialis', 'required');
+        // $this->form_validation->set_rules('nama_dokter', 'Nama Dokter', 'required');
+        // $this->form_validation->set_rules('spesialis', 'Spesialis', 'required');
         $this->form_validation->set_rules('jam', 'jam', 'required');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
@@ -54,6 +54,19 @@ class Pasien extends CI_Controller
             $this->Antrian_m->buatAntrian();
             redirect('pasien/antrian');
         }
+    }
+    
+    public function lihat_antrian()
+    {
+        $this->load->model('Antrian_m');
+        $data['title'] = "Antrian";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['antrian'] = $this->Antrian_m->getAntrian();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pasien/lihat_antrian', $data);
+        $this->load->view('templates/footer', $data);
     }
 
     public function rekammedik() {

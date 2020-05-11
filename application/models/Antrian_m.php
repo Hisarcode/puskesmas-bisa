@@ -10,8 +10,19 @@
 
         public function buatAntrian() {
             $data = [
-                "dokter_id" => $this->input->post()
+                "dokter_id" => $this->input->post('dokter_id'),
+                "pasien_id" => $this->input->post('pasien_id'),
+                "no_antrian" => $this->input->post('no_antrian'),
+                "tanggal" => $this->input->post('tanggal'),
+                "status" => $this->input->post('status'),
+                "jam" => $this->input->post('jam')
             ];
+
+            $this->db->insert('antrian', $data);
+            return $this->db->get('antrian')->result_array();
+        }
+
+        public function getAntrian() {
             return $this->db->get('antrian')->result_array();
         }
     }

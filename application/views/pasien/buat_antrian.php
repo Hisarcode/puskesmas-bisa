@@ -24,12 +24,14 @@
                 </div>
                 <div class="form-group">
                     <label for="nama_dokter">Nama Dokter</label>
-                    <input type="text" class="form-control" id="nama_dokter" name="nama_dokter" value="<?= $dokter['nama_gelar']?>">
+                    <div class="div">
+                        <input type="text" class="form-control" id="nama_dokter" name="nama_dokter" readonly value="<?= $dokter['nama_gelar']?>">
+                    </div>
                     <small class="form-text text-danger"><?= form_error('nama_dokter')?></small>
                 </div>
                 <div class="form-group">
                     <label for="spesialis">Spesialis</label>
-                    <input type="text" class="form-control" id="spesialis" name="spesialis" value="<?= $dokter['jenis_dokter']?>">
+                    <input type="text" class="form-control" id="spesialis" name="spesialis" readonly value="<?= $dokter['jenis_dokter']?>">
                     <small class="form-text text-danger"><?= form_error('spesialis')?></small>
                 </div>
                 <div class="form-group">
@@ -39,13 +41,18 @@
                 </div>
                 <div class="form-group">
                     <label for="tanggal">Tanggal</label>
-                    <input type="text" class="form-control" id="tanggal" name="tanggal">
+                    <input type="date" class="form-control" id="tanggal" name="tanggal">
                     <small class="form-text text-danger"><?= form_error('tanggal')?></small>
                 </div>
                 <div class="form-group">
                     <label for="no_antrian">Nomor Antrian</label>
                     <input type="text" class="form-control" id="no_antrian" name="no_antrian">
                     <small class="form-text text-danger"><?= form_error('no_antrian')?></small>
+                </div>
+                <div class="form-group" hidden>
+                    <label for="satus">Status</label>
+                    <input type="text" class="form-control" id="status" name="status" value="1">
+                    <small class="form-text text-danger"><?= form_error('status')?></small>
                 </div>
                 
                 
