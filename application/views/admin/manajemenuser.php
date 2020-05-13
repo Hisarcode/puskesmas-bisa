@@ -11,7 +11,8 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahMenuModal">Tambah User Baru</a>
+            <a href="tambah_user" class="btn btn-primary mb-3">Tambah User Baru</a>
+            <a href="lihat_user" class="btn btn-primary mb-3">Lihat User</a>
 
             <table class="table table-hover">
                 <thead>
@@ -33,8 +34,8 @@
                             <td><?= $mu['role_id']; ?></td>
                             <td>
                                 <a href="" class="badge badge-primary">Detail</a>
-                                <a href="" class="badge badge-success">Edit</a>
-                                <a href="" class="badge badge-danger">Delete</a>
+                                <a href="edit_user" class="badge badge-success">Edit</a>
+                                <a href="delete_user" class="badge badge-danger">Delete</a>
                             </td>
                         </tr>
                         <?php $i++;  ?>

@@ -150,4 +150,69 @@ class Admin extends CI_Controller
             redirect('menu');
         } */
     }
+
+    public function lihat_user()
+    {
+        $data['title'] = "Lihat User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['lihat_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/lihat_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+    public function tambah_user()
+    {
+        $data['title'] = "Tambah User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['tambah_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/tambah_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+    public function edit_user()
+    {
+        $data['title'] = "Edit User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['edit_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/edit_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+    public function delete_user()
+    {
+        $data['title'] = "Delete User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['delete_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/delete_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+
+
 }
+
+
