@@ -33,7 +33,6 @@ $(function () {
         $('#url').val('');
         $('#icon').val('');
         $('#menu_id').val('');
-        $('#is_active').prop("checked", true);
         $('.modal-body form').attr('action', 'http://localhost/puskesmas-bisa/menu/submenu');
     });
 
@@ -57,13 +56,7 @@ $(function () {
                 $('#title').val(data.title);
                 $('#url').val(data.url);
                 $('#icon').val(data.icon);
-                console.log(data.is_active);
-                if (data.is_active == 1) {
-                    $('#is_active').prop("checked", true);
-                } else {
-                    $('#is_active').prop("checked", false);
-                }
-
+                $('#is_active').val(data.is_active);
             }
         });
     });
