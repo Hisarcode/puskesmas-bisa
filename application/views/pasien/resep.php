@@ -11,36 +11,53 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <a href="tambah_user" class="btn btn-primary mb-3">Tambah User Baru</a>
-            <a href="lihat_user" class="btn btn-primary mb-3">Lihat User</a>
+            <p>
+            <form action="<?= base_url('pasien/resep/'); ?>" method="POST">
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <label class="ml-5 mt-2" for="cari">Cari Data Resep</label>
+                        </td>
+                        <td>
+                            <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" 
+                            id="cari" placeholder="silahkan cari data berdasarkan tanggal resep" autofocus>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            </p>
 
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Tanggal Resep</th>
+                        <th scope="col">Di Buat Oleh</th>
+                        <th scope="col">Jenis Dokter</th>
+                        <th scope="col">Tanggal Kadaluwarsa</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
+                
                 <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($manajemenuser as $mu) : ?>
+                    
+                    <?php foreach ($tampildata as $dr) : //if ($user['username' == $dr['nama']]) ?>
                         <tr>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $mu['nama']; ?></td>
-                            <td><?= $mu['username']; ?></td>
-                            <td><?= $mu['role_id']; ?></td>
+                            <th scope="row"><?= ++$start; ?></th>
+                            <td><?= $dr['date_created']; ?></td>
+                            <td><?= $dr['nama_gelar'], $dr['nama']; ?></td>
+                            <td><?= $dr['jenis_dokter']; ?></td>
+                            <td><?= $dr['date_expired']; ?></td>
                             <td>
-                                <a href="" class="badge badge-primary">Detail</a>
-                                <a href="edit_user" class="badge badge-success">Edit</a>
-                                <a href="delete_user" class="badge badge-danger">Delete</a>
+                                <a href="<?= base_url(); ?>pasien/detail_resep/<?= $dr['id']; ?>" class="badge badge-primary" data-id="<?= $dr['id']; ?>">Lihat Resep</a> 
                             </td>
                         </tr>
-                        <?php $i++;  ?>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
 
         </div>

@@ -11,37 +11,50 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <a href="tambah_user" class="btn btn-primary mb-3">Tambah User Baru</a>
-            <a href="lihat_user" class="btn btn-primary mb-3">Lihat User</a>
+            <p>
+            <form action="<?= base_url('dokter/datapasien/'); ?>" method="POST">
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
+                        </td>
+                        <td>
+                            <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            </p>
 
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Alamat</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($manajemenuser as $mu) : ?>
+                    <?php foreach ($tampildata as $dp) : ?>
                         <tr>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $mu['nama']; ?></td>
-                            <td><?= $mu['username']; ?></td>
-                            <td><?= $mu['role_id']; ?></td>
+                            <th scope="row"><?= ++$start; ?></th>
+                            <td><?= $dp['username']; ?></td>
+                            <td><?= $dp['nama']; ?></td>
+                            <td><?= $dp['alamat']; ?></td>
                             <td>
-                                <a href="" class="badge badge-primary">Detail</a>
-                                <a href="edit_user" class="badge badge-success">Edit</a>
-                                <a href="delete_user" class="badge badge-danger">Delete</a>
+                                <a href="<?= base_url(); ?>dokter/detail/<?= $dp['id']; ?>" class="badge badge-primary" data-id="<?= $dp['id']; ?>">Detail</a> 
                             </td>
                         </tr>
-                        <?php $i++;  ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
+            <?= $this->pagination->create_links(); ?>
 
         </div>
     </div>
