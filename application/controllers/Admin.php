@@ -108,4 +108,111 @@ class Admin extends CI_Controller
         $this->load->view('suratrujukan', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function rekammedik()
+    {
+        $this->load->model('Rekam_Medik_m');
+        $data['title'] = "Rekam Medik";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['history'] = $this->Rekam_Medik_m->getHistory();
+        // $data['id_pasien'] = $this->db->get_where('pasien')->result_array();
+        // $data['pasien'] = $this->db->get_where('user', ['id' => 'user_id'])->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/rekam_medik', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function keloladataobat()
+    {
+        $data['title'] = "Kelola Data Obat";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['dataobat'] = $this->db->get('obat')->result_array();
+
+        //bisa hubungkan ke model
+        // $data['menu'] = $this->db->get('user_menu')->result_array();
+
+        // $this->form_validation->set_rules('menu', 'Menu', 'required');
+
+        // if ($this->form_validation->run() == false) {
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/keloladataobat', $data);
+        $this->load->view('templates/footer', $data);
+        /* } else {
+            $this->db->insert('user_menu',  ['menu' => $this->input->post('menu')]);
+            $this->session->set_flashdata('category_success', 'Menu Telah Ditambahkan');
+            redirect('menu');
+        } */
+    }
+
+    public function lihat_user()
+    {
+        $data['title'] = "Lihat User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['lihat_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/lihat_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+    public function tambah_user()
+    {
+        $data['title'] = "Tambah User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['tambah_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/tambah_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+    public function edit_user()
+    {
+        $data['title'] = "Edit User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['edit_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/edit_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+    public function delete_user()
+    {
+        $data['title'] = "Delete User";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['delete_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/delete_user', $data);
+        $this->load->view('templates/footer', $data);
+        
+    }
+
+
+
 }
+
+

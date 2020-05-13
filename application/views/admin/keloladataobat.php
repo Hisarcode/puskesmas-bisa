@@ -11,31 +11,27 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <a href="tambah_user" class="btn btn-primary mb-3">Tambah User Baru</a>
-            <a href="lihat_user" class="btn btn-primary mb-3">Lihat User</a>
+            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahMenuModal">Tambah Data Obat</a>
 
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Nama Obat</th>
+                        <th scope="col">Jenis Obat</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($manajemenuser as $mu) : ?>
+                    <?php foreach ($dataobat as $datao) : ?>
                         <tr>
                             <th scope="row"><?= $i; ?></th>
-                            <td><?= $mu['nama']; ?></td>
-                            <td><?= $mu['username']; ?></td>
-                            <td><?= $mu['role_id']; ?></td>
+                            <td><?= $datao['nama_obat']; ?></td>
+                            <td><?= $datao['jenis_obat']; ?></td>
                             <td>
-                                <a href="" class="badge badge-primary">Detail</a>
-                                <a href="edit_user" class="badge badge-success">Edit</a>
-                                <a href="delete_user" class="badge badge-danger">Delete</a>
+                                <a href="" class="badge badge-success">Edit</a>
+                                <a href="" class="badge badge-danger">Delete</a>
                             </td>
                         </tr>
                         <?php $i++;  ?>

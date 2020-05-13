@@ -6,28 +6,27 @@
 
     <div class="row">
         <div class="col-lg">
-
-            <a href="<?= base_url()?>pasien/lihat_antrian/" class="btn btn-primary mb-3" >Lihat Antrian</a>
-
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama Dokter</th>
-                        <th scope="col">Spesialis</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">ID Pasien</th>
+                        <th scope="col">ID Dokter</th>
+                        <th scope="col">Nomor Antrian</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Jam</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($jadwal as $jdw) : ?>
+                    <?php foreach ($antrian as $ant) : ?>
                         <tr>
                             <th scope="row"><?= $i; ?></th>
-                            <td><?= $jdw['nama_gelar']; ?></td>
-                            <td><?= $jdw['jenis_dokter']; ?></td>
-                            <td>
-                                <a href="<?= base_url()?>pasien/buat_antrian/<?= $jdw['id'];?>" class="badge badge-success">+ Buat Antrian</a>
-                            </td>
+                            <td><?= $ant['pasien_id']; ?></td>
+                            <td><?= $ant['dokter_id']; ?></td>
+                            <td><?= $ant['no_antrian']; ?></td>
+                            <td><?= $ant['tanggal']; ?></td>
+                            <td><?= $ant['jam']; ?></td>
                         </tr>
                         <?php $i++;  ?>
                     <?php endforeach; ?>
