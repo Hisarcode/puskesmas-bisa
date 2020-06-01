@@ -11,48 +11,30 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <p>
-            <form action="<?= base_url('pasien/resep/'); ?>" method="POST">
-                <table class="table table-striped">
-                    <tr>
-                        <td>
-                            <label class="ml-5 mt-2" for="cari">Cari Data Resep</label>
-                        </td>
-                        <td>
-                            <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" 
-                            id="cari" placeholder="silahkan cari data berdasarkan tanggal resep" autofocus>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            </p>
-
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Tanggal Resep</th>
                         <th scope="col">Di Buat Oleh</th>
-                        <th scope="col">Jenis Dokter</th>
+                        <th scope="col">Spesialis</th>
                         <th scope="col">Tanggal Kadaluwarsa</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
-                    
-                    <?php foreach ($tampildata as $dr) : //if ($user['username' == $dr['nama']]) ?>
+
+                    <?php foreach ($tampildata as $dr) : //if ($user['username' == $dr['nama']]) 
+                    ?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
                             <td><?= $dr['date_created']; ?></td>
-                            <td><?= $dr['nama_gelar'], $dr['nama']; ?></td>
+                            <td><?= $dr['nama_gelar']; ?></td>
                             <td><?= $dr['jenis_dokter']; ?></td>
                             <td><?= $dr['date_expired']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>pasien/detail_resep/<?= $dr['id']; ?>" class="badge badge-primary" data-id="<?= $dr['id']; ?>">Lihat Resep</a> 
+                                <a href="<?= base_url(); ?>pasien/resep/<?= $dr['id']; ?>" class="badge badge-success tampilModalResepbtn" data-toggle="modal" data-target="#tampilResepModal" data-id="<?= $dr['date_created']; ?>">Lihat Resep</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -72,26 +54,21 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="tambahMenuModal" tabindex="-1" role="dialog" aria-labelledby="tambahMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="tampilResepModal" tabindex="-1" role="dialog" aria-labelledby="tampilResepModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahMenuModalLabel">Tambah Menu Baru</h5>
+                <h5 class="modal-title" id="tampilResepModalLabel">Resep</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('menu'); ?>" method="POST">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="menu" name="menu" placeholder="Nama Menu">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                </div>
-            </form>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
         </div>
     </div>
 </div>
