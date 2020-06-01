@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Surat_Rujukan extends CI_Controller
+class SuratRujukan extends CI_Controller
 {
     public function __construct()
     {
@@ -9,7 +9,7 @@ class Surat_Rujukan extends CI_Controller
         is_logged_in();
     }
 
-    public function inddex()
+    public function index()
     {
         $data['title'] = "Surat Rujukan";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();

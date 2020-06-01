@@ -128,27 +128,70 @@ class Admin extends CI_Controller
 
     public function keloladataobat()
     {
+        $this->load->model('Obat_m', 'obat');
         $data['title'] = "Kelola Data Obat";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['dataobat'] = $this->db->get('obat')->result_array();
 
-        //bisa hubungkan ke model
-        // $data['menu'] = $this->db->get('user_menu')->result_array();
 
-        // $this->form_validation->set_rules('menu', 'Menu', 'required');
 
-        // if ($this->form_validation->run() == false) {
+        $data['menu'] = $this->db->get('user_menu')->result_array();
+        // validasi input modal
+        $this->form_validation->set_rules('namaobat', 'Nama obat', 'required');
+        $this->form_validation->set_rules('jenisobat', 'Jenis obat', 'required');
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/keloladataobat', $data);
-        $this->load->view('templates/footer', $data);
-        /* } else {
-            $this->db->insert('user_menu',  ['menu' => $this->input->post('menu')]);
-            $this->session->set_flashdata('category_success', 'Menu Telah Ditambahkan');
-            redirect('menu');
-        } */
+        if ($this->form_validation->run() == false) {
+            $data['dataObat'] = $this->obat->getSubMenu();
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/keloladataobat', $data);
+            $this->load->view('templates/footer', $data);
+        } else {
+            if ($this->obat->insertDataSubMenu() > 0) {
+                $this->session->set_flashdata('category_success', 'Data Obat Telah Ditambahkan');
+                redirect('admin/keloladataobat');
+                exit;
+            } else {
+                $this->session->set_flashdata('category_error', 'Data Obat Gagal Ditambahkan');
+                redirect('admin/keloladataobat');
+                exit;
+            }
+        }
+    }
+
+    public function getEditDataObat()
+    {
+        $this->load->model('Obat_m', 'obat');
+        echo json_encode($this->obat->getObatById($_POST['id']));
+    }
+
+    public function editDataObat()
+    {
+        $this->load->model('Obat_m', 'obat');
+        if ($this->obat->editDataSubMenu($_POST) > 0) {
+            $this->session->set_flashdata('category_success', 'Data Obat Telah Diedit');
+            redirect('admin/keloladataobat');
+            exit;
+        } else {
+            $this->session->set_flashdata('category_error', 'Data Obat Gagal Diedit');
+            redirect('admin/keloladataobat');
+            exit;
+        }
+    }
+
+    public function deleteDataObat($id)
+    {
+        $this->load->model('Obat_m', 'obat');
+        if ($this->obat->deleteDataSubMenu($id) > 0) {
+            $this->session->set_flashdata('category_success', 'Data Obat Telah Dihapus');
+            redirect('admin/keloladataobat');
+            exit;
+        } else {
+            $this->session->set_flashdata('category_error', 'Data Obat Gagal Dihapus');
+            redirect('admin/keloladataobat');
+            exit;
+        }
     }
 
     public function lihat_user()
@@ -163,7 +206,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/lihat_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
 
     public function tambah_user()
@@ -178,7 +220,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/tambah_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
 
     public function edit_user()
@@ -193,7 +234,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/edit_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
 
     public function delete_user()
@@ -208,11 +248,5 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/delete_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
-
-
-
 }
-
-
