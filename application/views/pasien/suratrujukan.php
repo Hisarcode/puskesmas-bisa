@@ -5,36 +5,38 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg">
             <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?php if ($this->session->flashdata('category_error')) : ?>
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahMenuModal">Tambah Surat Baru</a>
-
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Menu</th>
+                        <th scope="col">No Surat</th>
+                        <th scope="col">Di Rujuk Oleh</th>
+                        <th scope="col">Di Tujukan Ke</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
+                
                 <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($menu as $m) : ?>
+                    
+                    <?php foreach ($tampildata as $dr) : //if ($user['username' == $dr['nama']]) ?>
                         <tr>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $m['menu']; ?></td>
+                            <th scope="row"><?= ++$start; ?></th>
+                            <td><?= $dr['nomor_surat']; ?></td>
+                            <td><?= $dr['nama_gelar']; ?></td>
+                            <td><?= $dr['tujuan']; ?></td>
                             <td>
-                                <a href="" class="badge badge-success">Edit</a>
-                                <a href="" class="badge badge-danger">Delete</a>
+                                <a href="<?= base_url(); ?>pasien/detail_rujukan/<?= $dr['id']; ?>" class="badge badge-primary" data-id="<?= $dr['id']; ?>">Lihat Surat</a> 
                             </td>
                         </tr>
-                        <?php $i++;  ?>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
 
         </div>
