@@ -4,14 +4,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class User_m extends CI_Model
 {
     //untuk data pasien
-    public function tampilDataPasien($limit, $start='0'){
+    public function tampilDataPasien($limit, $start = '0')
+    {
         $query = "SELECT `pasien`.*, `user`.`username`, `user`.`nama`, `user`.`alamat`
                 FROM `pasien` JOIN `user`
-                ON `pasien`.`user_id` = `user`.`id` ORDER BY `pasien`.`user_id` ASC LIMIT ". $start.",".$limit;
-       return $this->db->query($query)->result_array();
+                ON `pasien`.`user_id` = `user`.`id` ORDER BY `pasien`.`user_id` ASC LIMIT " . $start . "," . $limit;
+        return $this->db->query($query)->result_array();
     }
 
-    public function countSemuaPasien(){
+    public function countSemuaPasien()
+    {
         return $this->db->get('pasien')->num_rows();
     }
 
@@ -19,25 +21,55 @@ class User_m extends CI_Model
     {
         $query = "SELECT `pasien`.*, `user`.`username`, `user`.`nama`, `user`.`alamat`
         FROM `pasien` JOIN `user`
-        ON `pasien`.`user_id` = `user`.`id` WHERE `user`.`username` OR `user`.`nama`  LIKE '%".$cari."%' ORDER BY `pasien`.`user_id` ASC";
+        ON `pasien`.`user_id` = `user`.`id` WHERE `user`.`username` OR `user`.`nama`  LIKE '%" . $cari . "%' ORDER BY `pasien`.`user_id` ASC";
+
+        return $this->db->query($query)->result_array();
+    }
+
+    //untuk data pasien
+    public function tampilDataAntrian($limit, $start = '0')
+    {
+        $query = "SELECT 
+                `antrian`.*, `dokter`.`nama_gelar`, `dokter`.`jenis_dokter`,
+                `dokter`.*, `user`.`nama`
+                FROM `antrian` 
+                JOIN `dokter`ON `resep`.`dokter_id` = `dokter`.`id` 
+                JOIN `user` ON `dokter`.`user_id` = `user`.`id`
+                ORDER BY `resep`.`date_created` ASC LIMIT " . $start . "," . $limit;
+
+        return $this->db->query($query)->result_array();
+    }
+
+    public function countSemuaAntrian()
+    {
+        return $this->db->get('pasien')->num_rows();
+    }
+
+    public function tampilDataAntrianCari($cari)
+    {
+        $query = "SELECT `pasien`.*, `user`.`username`, `user`.`nama`, `user`.`alamat`
+        FROM `pasien` JOIN `user`
+        ON `pasien`.`user_id` = `user`.`id` WHERE `user`.`username` OR `user`.`nama`  LIKE '%" . $cari . "%' ORDER BY `pasien`.`user_id` ASC";
 
         return $this->db->query($query)->result_array();
     }
 
     //untuk data resep
-    public function tampilDataResep($limit, $start='0'){
+    public function tampilDataResep($limit, $start = '0')
+    {
         $query = "SELECT 
                 `resep`.*, `dokter`.`nama_gelar`, `dokter`.`jenis_dokter`,
                 `dokter`.*, `user`.`nama`
                 FROM `resep` 
                 JOIN `dokter`ON `resep`.`dokter_id` = `dokter`.`id` 
                 JOIN `user` ON `dokter`.`user_id` = `user`.`id`
-                ORDER BY `resep`.`date_created` ASC LIMIT ". $start.",".$limit;
+                ORDER BY `resep`.`date_created` ASC LIMIT " . $start . "," . $limit;
 
         return $this->db->query($query)->result_array();
     }
 
-    public function countSemuaResep(){
+    public function countSemuaResep()
+    {
         return $this->db->get('resep')->num_rows();
     }
 
@@ -49,7 +81,7 @@ class User_m extends CI_Model
         FROM `resep` 
         JOIN `dokter`ON `resep`.`dokter_id` = `dokter`.`id` 
         JOIN `user` ON `dokter`.`user_id` = `user`.`id`
-        WHERE `resep`.`date_created` LIKE '%".$cari."%' 
+        WHERE `resep`.`date_created` LIKE '%" . $cari . "%' 
         ORDER BY `resep`.`date_created` ASC";
 
         return $this->db->query($query)->result_array();
@@ -60,7 +92,7 @@ class User_m extends CI_Model
         $query = "SELECT `pasien`.*, `user`.`nama`, `user`.`nik`, `user`.`tanggallahir`,`user`.`alamat`,`user`.`email`
         FROM `pasien` 
         JOIN `user` ON `pasien`.`user_id` = `user`.`id` 
-        WHERE `pasien`.`id` =".$id;
+        WHERE `pasien`.`id` =" . $id;
 
         return $this->db->query($query)->row_array();
     }
