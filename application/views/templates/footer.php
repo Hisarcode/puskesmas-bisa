@@ -45,6 +45,8 @@
 <!-- Core plugin JavaScript-->
 <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
@@ -73,6 +75,14 @@
         });
 
     })
+
+
+    // Material Select Initialization
+    $(document).ready(function() {
+        $('select').selectize({
+            sortField: 'text'
+        });
+    });
 </script>
 
 </body>
