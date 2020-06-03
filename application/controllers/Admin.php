@@ -98,17 +98,6 @@ class Admin extends CI_Controller
         } */
     }
 
-    public function suratrujukan()
-    {
-        $data['title'] = "Surat Rujukan";
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('suratrujukan', $data);
-        $this->load->view('templates/footer', $data);
-    }
-
     public function rekammedik()
     {
         $this->load->model('Rekam_Medik_m');
@@ -163,7 +152,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/lihat_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
 
     public function tambah_user()
@@ -178,7 +166,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/tambah_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
 
     public function edit_user()
@@ -193,7 +180,6 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/edit_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
 
     public function delete_user()
@@ -208,11 +194,5 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/delete_user', $data);
         $this->load->view('templates/footer', $data);
-        
     }
-
-
-
 }
-
-
