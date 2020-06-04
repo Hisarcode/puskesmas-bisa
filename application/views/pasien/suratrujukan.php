@@ -5,7 +5,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg">
             <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?php if ($this->session->flashdata('category_error')) : ?>
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
@@ -21,6 +21,7 @@
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($suratrujukan as $sr) : ?>
@@ -28,13 +29,12 @@
                             <td scope="row"><?= $sr['nama']; ?></td>
                             <td><?= $sr['tujuan']; ?></td>
                             <td>
-                                <a href="" class="badge badge-success">Edit</a>
-                                <a href="" class="badge badge-danger">Delete</a>
+                                <a href="<?= base_url(); ?>pasien/detail_rujukan/<?= $dr['id']; ?>" class="badge badge-primary" data-id="<?= $dr['id']; ?>">Lihat Surat</a>
                             </td>
                         </tr>
-                        <?php $i++;  ?>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
 
         </div>
