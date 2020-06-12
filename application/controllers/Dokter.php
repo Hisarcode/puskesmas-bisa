@@ -104,4 +104,32 @@ class Dokter extends CI_Controller
         $this->load->view('dokter/detail', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function rekammedikpasien()
+    {
+        $this->load->model('Rekam_Medik_m');
+        $data['title'] = "Rekam Medik Pasien";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['dokter'] = $this->db->get('dokter');
+        $data['history'] = $this->Rekam_Medik_m->getHistoryDokter($data['user']);
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('dokter/rekam_medik_pasien', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function lihat_rekam_medik_pasien($id1, $id2)
+    {
+        $this->load->model('Rekam_Medik_m');
+        $data['title'] = "Rekam Medik";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['lihat'] = $this->Rekam_Medik_m->getRekamMedikById($id1);
+        $data['nama'] = $this->Rekam_Medik_m->getNamaPasienById($id2);
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('dokter/lihat_rekam_medik_pasien', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }
