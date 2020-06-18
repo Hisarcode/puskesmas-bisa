@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class SuratRujukan extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('SuratRujukan_m', 'surat');
+        $this->load->model('User_m', 'user');
+    }
+
     private function _getRomawiBulan($bulan)
     {
         switch ($bulan) {
@@ -58,12 +65,6 @@ class SuratRujukan extends CI_Controller
     }
 
 
-    public function __construct()
-    {
-        parent::__construct();
-        is_logged_in();
-        $this->load->model('User_m', 'user');
-    }
 
     public function index()
     {
@@ -93,7 +94,7 @@ class SuratRujukan extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('suratrujukan/index', $data);
+            $this->load->view('admin/suratrujukan', $data);
             $this->load->view('templates/footer', $data);
         } else {
 
@@ -113,6 +114,38 @@ class SuratRujukan extends CI_Controller
             $this->db->insert('surat_rujukan', $data);
             $this->session->set_flashdata('category_success', 'Surat Rujukan Telah Ditambahkan');
             redirect('suratrujukan');
+        }
+    }
+
+    public function getEditSuratRujukan()
+    {
+        echo json_encode($this->surat->getSuratRujukanById($_POST['id']));
+    }
+
+    public function editSuratRujukan()
+    {
+        if ($this->surat->editDataSuratRujukan($_POST) > 0) {
+            $this->session->set_flashdata('category_success', 'Surat Rujukan Telah Diedit');
+            redirect('suratrujukan');
+            exit;
+        } else {
+            $this->session->set_flashdata('category_error', 'Surat Rujukan Gagal Diedit');
+            redirect('suratrujukan');
+            exit;
+        }
+    }
+
+
+    public function deleteSuratRujukan($id)
+    {
+        if ($this->surat->deleteDataSuratRujukan($id) > 0) {
+            $this->session->set_flashdata('category_success', 'Surat Rujukan Telah Dihapus');
+            redirect('suratrujukan');
+            exit;
+        } else {
+            $this->session->set_flashdata('category_error', 'Surat Rujukan Gagal Dihapus');
+            redirect('suratrujukan ');
+            exit;
         }
     }
 }
