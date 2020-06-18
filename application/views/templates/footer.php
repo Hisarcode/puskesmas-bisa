@@ -57,6 +57,8 @@
 <script src="<?= base_url(); ?>assets/js/script.js"></script>
 <script src="<?= base_url(); ?>assets/js/scriptresep.js"></script>
 <script src="<?= base_url(); ?>assets/js/script_obat.js"></script>
+<script src="<?= base_url(); ?>assets/js/scriptsuratrujukan.js"></script>
+
 
 
 <script>
@@ -77,14 +79,6 @@
         });
 
     })
-
-
-    // Material Select Initialization
-    $(document).ready(function() {
-        $('select').selectize({
-            sortField: 'text'
-        });
-    });
 </script>
 
 </body>
