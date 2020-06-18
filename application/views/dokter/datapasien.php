@@ -12,23 +12,23 @@
             <?php endif; ?>
 
             <p>
-            <form action="<?= base_url('dokter/datapasien/'); ?>" method="POST">
-                <table class="table table-striped">
-                    <tr>
-                        <td>
-                            <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
-                        </td>
-                        <td>
-                            <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+                <form action="<?= base_url('dokter/datapasien/'); ?>" method="POST">
+                    <table class="table table-striped">
+                        <tr>
+                            <td>
+                                <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
+                            </td>
+                            <td>
+                                <input type="submit" class="btn btn-success" name="tombolcari" value="Cari">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </p>
-
+            <p>menampilkan <b><?= $total_rows; ?></b> hasil untuk <b><?= $cari ?></b> </p>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -47,7 +47,7 @@
                             <td><?= $dp['nama']; ?></td>
                             <td><?= $dp['alamat']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>dokter/detail/<?= $dp['id']; ?>" class="badge badge-primary" data-id="<?= $dp['id']; ?>">Detail</a> 
+                                <a href="<?= base_url(); ?>dokter/detail/<?= $dp['id']; ?>" class="badge badge-primary" data-id="<?= $dp['id']; ?>">Detail</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

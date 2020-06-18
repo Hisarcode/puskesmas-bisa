@@ -4,12 +4,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class User_m extends CI_Model
 {
     //untuk data pasien
-    public function tampilDataPasien($limit, $start = '0')
+    public function tampilDataPasien($limit, $start = '0', $cari = null)
     {
-        $query = "SELECT `pasien`.*, `user`.`username`, `user`.`nama`, `user`.`alamat`
-                FROM `pasien` JOIN `user`
-                ON `pasien`.`user_id` = `user`.`id` ORDER BY `pasien`.`user_id` ASC LIMIT " . $start . "," . $limit;
-        return $this->db->query($query)->result_array();
+        $this->db->select('*');
+        $this->db->from('pasien');
+        $this->db->join('user', 'user.id = pasien.user_id');
+        $this->db->limit($limit, $start);
+        if ($cari) {
+            $this->db->like('user.nama', $cari);
+        }
+        return $this->db->get()->result_array();
     }
 
     public function countSemuaPasien()
@@ -81,12 +85,11 @@ class User_m extends CI_Model
 
     public function detail_pasien($id = NULL)
     {
-        $query = "SELECT `pasien`.*, `user`.`nama`, `user`.`nik`, `user`.`tanggallahir`,`user`.`alamat`,`user`.`email`
-        FROM `pasien` 
-        JOIN `user` ON `pasien`.`user_id` = `user`.`id` 
-        WHERE `pasien`.`id` =" . $id;
-
-        return $this->db->query($query)->row_array();
+        $this->db->select('*');
+        $this->db->from('pasien');
+        $this->db->join('user', 'user.id = pasien.user_id');
+        $this->db->where('pasien.user_id', $id);
+        return $this->db->get()->row_array();
     }
 
     public function register($enc_password)
