@@ -31,6 +31,32 @@ class User_m extends CI_Model
         return $this->db->get_where('pasien', array('user_id' => $userId))->row()->id;
     }
 
+    //untuk data antrian
+    public function tampilDataAntrian($limit, $start = '0')
+    {
+        $query = "SELECT *
+                FROM `antrian` 
+                JOIN `dokter` ON `antrian`.`dokter_id` = `dokter`.`id` 
+                ORDER BY `antrian`.`tanggal` ASC LIMIT " . $start . "," . $limit;
+
+        return $this->db->query($query)->result_array();
+    }
+
+    public function countSemuaAntrian()
+    {
+        return $this->db->get('antrian')->num_rows();
+    }
+
+    public function tampilDataAntrianCari($cari)
+    {
+        $query = "SELECT `antrian`.*, `antrian`.`jam`, `dokter`.`nama_gelar`, `dokter`.`jenis_dokter`,
+        FROM `antrian` JOIN `dokter`
+        ON `antrian`.`dokter_id` = `dokter`.`id` WHERE `antrian`.`tanggal` LIKE '%" . $cari . "%' ORDER BY `antrian`.`dokter_id` ASC";
+
+        return $this->db->query($query)->result_array();
+    }
+
+
     //untuk data resep
     public function tampilDataResep($limit, $start = '0', $idPasien)
     {
@@ -55,8 +81,11 @@ class User_m extends CI_Model
 
         $query = "SELECT *
         FROM `resep` 
-        JOIN `obat` ON `resep`.`obat_id` = `obat`.`id` 
-        WHERE `resep`.`date_created` ='" . $hari . "'";
+        JOIN `dokter`ON `resep`.`dokter_id` = `dokter`.`id` 
+        JOIN `user` ON `dokter`.`user_id` = `user`.`id`
+        WHERE `resep`.`date_created` LIKE '%" . $hari . "%' 
+        ORDER BY `resep`.`date_created` ASC";
+
         return $this->db->query($query)->result_array();
     }
 
