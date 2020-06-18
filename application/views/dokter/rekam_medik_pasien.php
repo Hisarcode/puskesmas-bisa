@@ -20,7 +20,7 @@
                             <td><?= $hty['no_rekam_medik']; ?></td>
                             <td><?= $hty['date_created']; ?></td>
                             <td>
-                                <a href="<?= base_url() ?>pasien/lihat_rekam_medik/<?= $hty['id']; ?>/<?= $hty['dokter_id']; ?>" class="badge badge-success">Lihat Rekam Medik</a>
+                                <a href="<?= base_url() ?>dokter/lihat_rekam_medik_pasien/<?= $hty['id']; ?>/<?= $hty['pasien_id']; ?>" class="badge badge-success">Lihat Rekam Medik</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
