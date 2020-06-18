@@ -253,4 +253,18 @@ class Admin extends CI_Controller
         $this->load->view('admin/delete_user', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function konfigurasi()
+    {
+        $data['title'] = "Konfigurasi";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['delete_user'] = $this->db->get('user')->result_array();
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/konfigurasi', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }
