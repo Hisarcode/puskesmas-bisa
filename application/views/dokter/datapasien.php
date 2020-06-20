@@ -28,7 +28,7 @@
                     </table>
                 </form>
             </p>
-            <p>menampilkan <b><?= $total_rows; ?></b> hasil untuk <b><?= $cari ?></b> </p>
+            <p>menampilkan <b><?= $total_rows; ?></b> hasil</p>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -40,6 +40,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if (empty($tampildata)) : ?>
+                        <tr>
+                            <td colspan=5>
+                                <div class="alert alert-danger" role="alert">
+                                    Data Tidak ditemukan
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif ?>
                     <?php foreach ($tampildata as $dp) : ?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
