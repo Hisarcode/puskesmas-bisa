@@ -28,6 +28,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col" hidden>Id Dokter</th>
                         <th scope="col">Nama Dokter</th>
                         <th scope="col">Spesialis</th>
                         <th scope="col">Action</th>
@@ -37,6 +38,7 @@
                     <?php foreach ($tampildata as $jdw) : ?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>
+                            <td hidden><?= $jdw['user_id']; ?></td>
                             <td><?= $jdw['nama_gelar']; ?></td>
                             <td><?= $jdw['jenis_dokter']; ?></td>
                             <td>
@@ -69,26 +71,21 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('pasien/antrian/'); ?>" method="POST">
-                    <input type="hidden" name="id" id="id">
+                    <input type="hidden" name="pasien_id" id="pasien_id" value="<?= $user['id']; ?>">
+                    <input type="hidden" name="dokter_id" id="dokter_id" value="<?= $jdw['user_id']; ?>">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Antrian Title">
+                        <input type="text" class="form-control" id="nama_dokter" name="nama_dokter" value="<?= $jdw['nama_gelar']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="no_antrian" name="no_antrian" placeholder="Nomor Antrian">
                     </div>
 
                     <div class="form-group">
-                        <select name="menu_id" id="menu_id" class="form-control">
-                            <option value="">Pilih Menu</option>
-                            <?php foreach ($menu as $m) : ?>
-                                <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <input type="text" class="form-control" id="tanggal" name="tanggal" placeholder="Tanggal Antrian">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="url" name="url" placeholder="Sub Menu Url">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu Icon">
+                        <input type="text" class="form-control" id="jam" name="jam" placeholder="jam">
                     </div>
 
                     <div class="form-group">
