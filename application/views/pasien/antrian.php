@@ -47,7 +47,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Jam</th>
                         <th scope="col" hidden>Id Dokter</th>
                         <th scope="col">Nama Dokter</th>
                         <th scope="col">No Antrian</th>
