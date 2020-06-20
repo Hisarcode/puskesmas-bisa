@@ -46,4 +46,12 @@ class Obat_m extends CI_Model
         $this->db->delete('obat', array('id' => $id));
         return $this->db->affected_rows();
     }
+    public function getAllObat($limit, $start)
+    {
+        return $this->db->get('obat', $limit, $start)->result_array();
+    }
+    public function countSemuaObat()
+    {
+        return $this->db->get('obat')->num_rows();
+    }
 }

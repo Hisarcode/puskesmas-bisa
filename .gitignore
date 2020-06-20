@@ -29,3 +29,11 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+dinanda.sql
+maliki.sql
+mario.sql
+puskesmas_bisa.sql
+mario/Admin.php
+mario/manajemenuser.php
+mario/tambah_user.php
+mario/User_m.php

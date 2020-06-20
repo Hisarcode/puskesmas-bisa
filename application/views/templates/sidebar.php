@@ -30,41 +30,41 @@
 
             <!-- LOOPING MENU -->
             <?php foreach ($menu as $m) : ?>
-                <div class="sidebar-heading">
-                    <?= $m['menu'] ?>
-                </div>
+                <?php if ($m['menu'] != 'Menu') : ?>
+                    <div class="sidebar-heading">
+                        <?= $m['menu'] ?>
+                    </div>
 
-
-                <!-- SIAPKAN MENU SESUAI SUB-MENU -->
-                <?php
-                $menuId = $m['id'];
-                $querySubMenu = "SELECT *
+                    <!-- SIAPKAN MENU SESUAI SUB-MENU -->
+                    <?php
+                    $menuId = $m['id'];
+                    $querySubMenu = "SELECT *
                             FROM `user_sub_menu`
                             WHERE `menu_id` = $menuId
                             AND `is_active` = 1
                         ";
-                $subMenu = $this->db->query($querySubMenu)->result_array();
-                ?>
+                    $subMenu = $this->db->query($querySubMenu)->result_array();
+                    ?>
 
-                <?php foreach ($subMenu as $sm) : ?>
+                    <?php foreach ($subMenu as $sm) : ?>
 
-                    <!-- Nav Item - Dashboard -->
-                    <?php if ($title == $sm['title']) : ?>
-                        <li class="nav-item active">
-                        <?php else : ?>
-                        <li class="nav-item">
-                        <?php endif; ?>
+                        <!-- Nav Item - Dashboard -->
+                        <?php if ($title == $sm['title']) : ?>
+                            <li class="nav-item active">
+                            <?php else : ?>
+                            <li class="nav-item">
+                            <?php endif; ?>
 
-                        <a class="nav-link pb-0" href="<?= base_url($sm['url']); ?>">
-                            <i class="<?= $sm['icon']; ?>"></i>
-                            <span><?= $sm['title']; ?></span></a>
-                        </li>
+                            <a class="nav-link pb-0" href="<?= base_url($sm['url']); ?>">
+                                <i class="<?= $sm['icon']; ?>"></i>
+                                <span><?= $sm['title']; ?></span></a>
+                            </li>
 
-                    <?php endforeach ?>
+                        <?php endforeach ?>
 
-                    <!-- Divider -->
-                    <hr class="sidebar-divider mt-3">
-
+                        <!-- Divider -->
+                        <hr class="sidebar-divider mt-3">
+                    <?php endif; ?>
                 <?php endforeach; ?>
 
 

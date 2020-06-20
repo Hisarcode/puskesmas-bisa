@@ -1,7 +1,10 @@
-<?php
-class pdf {
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-    function __construct() {
-        include_once APPPATH . '/third_party/fpdf/fpdf.php';
+require_once APPPATH . '/third_party/TCPDF-6.3.5/tcpdf.php';
+class Pdf extends TCPDF
+{
+    function __construct()
+    {
+        parent::__construct();
     }
 }

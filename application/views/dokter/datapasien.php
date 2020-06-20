@@ -19,16 +19,23 @@
                                 <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
                             </td>
                             <td>
+<<<<<<< HEAD
                                 <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
+=======
+                                <input type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
+                            </td>
+                            <td>
+                                <input type="submit" class="btn btn-success" name="tombolcari" value="Cari">
+>>>>>>> d06048861fc0f633157d9a0bdffd3892fa9ba3da
                             </td>
                         </tr>
                     </table>
                 </form>
             </p>
-
+            <p>menampilkan <b><?= $total_rows; ?></b> hasil</p>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -40,6 +47,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if (empty($tampildata)) : ?>
+                        <tr>
+                            <td colspan=5>
+                                <div class="alert alert-danger" role="alert">
+                                    Data Tidak ditemukan
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif ?>
                     <?php foreach ($tampildata as $dp) : ?>
                         <tr>
                             <th scope="row"><?= ++$start; ?></th>

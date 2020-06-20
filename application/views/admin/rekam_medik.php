@@ -10,7 +10,6 @@
                 <thead>
                     <tr>
                         <th scope="col">Nomor Rekam Medik</th>
-                        <!-- <th scope="col">Nama Pasien</th> -->
                         <th scope="col">Dibuat Tanggal</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -19,16 +18,15 @@
                     <?php foreach ($history as $hty) : ?>
                         <tr>
                             <td><?= $hty['no_rekam_medik']; ?></td>
-                            <!-- <td><?= $hty['pasien']; ?></td> -->
                             <td><?= $hty['date_created']; ?></td>
                             <td>
-                                <a href="<?= base_url()?>admin/rekam_medik/<?= $hty['id'];?>" class="badge badge-success">Lihat Rekam Medik</a>
+                                <a href="<?= base_url() ?>admin/lihat_rekam_medik/<?= $hty['id']; ?>/<?= $hty['pasien_id']; ?>/<?= $hty['dokter_id']; ?>" class="badge badge-success">Lihat Rekam Medik</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <a href="<?= base_url()?>admin/rekam_medik" class="btn btn-primary mb-3">+ Buat Rekam Medik</a>
+            <a href="<?= base_url() ?>admin/rekam_medik" class="btn btn-primary mb-3">+ Buat Rekam Medik</a>
         </div>
     </div>
 
@@ -37,6 +35,3 @@
 
 </div>
 <!-- End of Main Content -->
-
-
-
