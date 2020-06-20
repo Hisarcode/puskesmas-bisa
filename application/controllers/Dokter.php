@@ -85,11 +85,6 @@ class Dokter extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         $data['tampildata'] = '';
 
-<<<<<<< HEAD
-        // styling pagination
-        $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-        $config['full_tag_close'] = '</ul></nav>';
-=======
         // cek apakah data kosong
         if (isset($data['cari']) && !empty($data['cari'])) {
             // kalau tidak cari data sesuai kata cari
@@ -98,8 +93,7 @@ class Dokter extends CI_Controller
             $config['base_url'] = 'http://localhost/puskesmas-bisa/dokter/tambahresep';
             $config['total_rows'] = $this->user->countSemuaPasien();
             $config['per_page'] = 10;
->>>>>>> d06048861fc0f633157d9a0bdffd3892fa9ba3da
-
+        }
         $config['first_link'] = 'First';
         $config['first_tag_open'] = '<li class="page-item">';
         $config['first_tag_close'] = '</li>';

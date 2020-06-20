@@ -10,7 +10,7 @@
             <?php if ($this->session->flashdata('category_error')) : ?>
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
-            <?= $tr; ?>
+
             <p>
                 <form action="<?= base_url('dokter/datapasien/'); ?>" method="POST">
                     <table class="table table-striped">
@@ -19,17 +19,10 @@
                                 <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
                             </td>
                             <td>
-<<<<<<< HEAD
-                                <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
-=======
                                 <input type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
                             </td>
                             <td>
                                 <input type="submit" class="btn btn-success" name="tombolcari" value="Cari">
->>>>>>> d06048861fc0f633157d9a0bdffd3892fa9ba3da
                             </td>
                         </tr>
                     </table>
@@ -70,7 +63,7 @@
                 </tbody>
             </table>
 
-            <?= $pagination; ?>
+            <?= $this->pagination->create_links(); ?>
 
         </div>
     </div>
