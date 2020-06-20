@@ -81,7 +81,7 @@ class SuratRujukan extends CI_Controller
 
         $data['nomor_surat'] = $this->_nomorSurat();
 
-        $this->db->select('*');
+        $this->db->select('surat_rujukan.*,pasien.*,user.nama');
         $this->db->from('surat_rujukan');
         $this->db->join('pasien', '`surat_rujukan`.`user_id` = `pasien`.`id`');
         $this->db->join('user', '`pasien`.`user_id` = `user`.`id`');
@@ -101,7 +101,7 @@ class SuratRujukan extends CI_Controller
             $data = [
 
                 //tambah surat rujukan
-                'user_id' => "8",
+                'user_id' => htmlspecialchars($this->input->post('pasien_id', true)),
                 'nomor_surat' => htmlspecialchars($this->input->post('no_surat', true)),
                 'dokter_id' => htmlspecialchars($this->input->post('dokter_id', true)),
                 'tujuan' => htmlspecialchars($this->input->post('tujuan', true)),

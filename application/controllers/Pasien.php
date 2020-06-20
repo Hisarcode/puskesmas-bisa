@@ -8,9 +8,11 @@ class Pasien extends CI_Controller
         parent::__construct();
         $this->load->library('session');
         $this->load->model('User_m', 'user');
-        $this->load->model(array('User_m'));
+        $this->load->model('Antrian_m', 'antri');
+        $this->load->model('SuratRujukan_m', 'surat');
         $this->load->library('pagination');
         is_logged_in();
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
@@ -28,94 +30,32 @@ class Pasien extends CI_Controller
 
     public function resep()
     {
+        if ($this->input->post('tombolcari')) {
+            $data['cariresep'] = $this->input->post('cari');
+            $this->session->set_userdata('cariresep', $data['cariresep']);
+        } else {
+            $data['cariresep'] = $this->session->userdata('cariresep');
+        }
 
-        $data['cari'] = $this->input->post('cari', true);
         $data['start'] = $this->uri->segment(3);
         //$data['tampildata'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         //WHERE `pasien`.`id` =".$id;
 
-        // cek apakah data kosong
-        if (isset($data['cari']) && !empty($data['cari'])) {
-            // kalau tidak cari data sesuai kata cari
-            $data['tampildata'] = $this->user->tampilDataResepCari($data['cari']);
-        } else {
-            $config['base_url'] = 'http://localhost/puskesmas-bisa/dokter/datapasien';
-            $config['total_rows'] = $this->user->countSemuaResep();
-            $config['per_page'] = 10;
 
-            // styling pagination
-            $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-            $config['full_tag_close'] = '</ul></nav>';
+        $config['total_rows'] = $this->user->countSemuaResep();
+        $config['per_page'] = 10;
 
-            $config['first_link'] = 'First';
-            $config['first_tag_open'] = '<li class="page-item">';
-            $config['first_tag_close'] = '</li>';
 
-            $config['last_link'] = 'Last';
-            $config['last_tag_open'] = '<li class="page-item">';
-            $config['last_tag_close'] = '</li>';
 
-            $config['next_link'] = '&raquo';
-            $config['next_tag_open'] = '<li class="page-item">';
-            $config['next_tag_close'] = '</li>';
-
-            $config['prev_link'] = '&laquo';
-            $config['prev_tag_open'] = '<li class="page-item">';
-            $config['prev_tag_close'] = '</li>';
-
-            $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-            $config['cur_tag_close'] = '</a></li>';
-
-            $config['num_tag_open'] = '<li class="page-item">';
-            $config['num_tag_close'] = '</li>';
-            $config['base_url'] = 'http://localhost/puskesmas-bisa/dokter/datapasien';
-            $config['total_rows'] = $this->user->countSemuaResep();
-            $config['per_page'] = 10;
-
-            // styling pagination
-            $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-            $config['full_tag_close'] = '</ul></nav>';
-
-            $config['first_link'] = 'First';
-            $config['first_tag_open'] = '<li class="page-item">';
-            $config['first_tag_close'] = '</li>';
-
-            $config['last_link'] = 'Last';
-            $config['last_tag_open'] = '<li class="page-item">';
-            $config['last_tag_close'] = '</li>';
-
-            $config['next_link'] = '&raquo';
-            $config['next_tag_open'] = '<li class="page-item">';
-            $config['next_tag_close'] = '</li>';
-
-            $config['prev_link'] = '&laquo';
-            $config['prev_tag_open'] = '<li class="page-item">';
-            $config['prev_tag_close'] = '</li>';
-
-            $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-            $config['cur_tag_close'] = '</a></li>';
-
-            $config['num_tag_open'] = '<li class="page-item">';
-            $config['num_tag_close'] = '</li>';
-
-            $config['attributes'] = array('class' => 'page-link');
-
-            // initialize pagination
-            $this->pagination->initialize($config);
-            $data['start'] = $this->uri->segment(3);
-            if (empty($data['start'])) {
-                $data['start'] = 0;
-            }
-
-            //tampilkan semua data pasien per page
-            $data['tampildata'] = $this->user->tampilDataResep($config['per_page'], $data['start']);
-        }
         // initialize pagination
         $this->pagination->initialize($config);
         $data['start'] = $this->uri->segment(3);
         if (empty($data['start'])) {
             $data['start'] = 0;
         }
+
+        //tampilkan semua data pasien per page
+        // $data['tampildata'] = $this->user->tampilDataResep($config['per_page'], $data['start']);
 
         $data['title'] = "Resep";
 
@@ -128,8 +68,6 @@ class Pasien extends CI_Controller
         $data['tampildata'] = $this->user->tampilDataResep($config['per_page'], $data['start'], $idPasien);
         // var_dump($data['tampildata']);
         // exit;
-
-
 
 
         $this->load->view('templates/header', $data);
@@ -164,57 +102,16 @@ class Pasien extends CI_Controller
 
     public function suratrujukan()
     {
-        $config['base_url'] = 'http://localhost/puskesmas-bisa/dokter/datapasien';
-        $config['total_rows'] = $this->user->countSemuaRujukan();
-        $config['per_page'] = 10;
-
-        // styling pagination
-        $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-        $config['full_tag_close'] = '</ul></nav>';
-
-        $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li class="page-item">';
-        $config['first_tag_close'] = '</li>';
-
-        $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li class="page-item">';
-        $config['last_tag_close'] = '</li>';
-
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li class="page-item">';
-        $config['next_tag_close'] = '</li>';
-
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="page-item">';
-        $config['prev_tag_close'] = '</li>';
-
-        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-
-        $config['num_tag_open'] = '<li class="page-item">';
-        $config['num_tag_close'] = '</li>';
-
-        $config['attributes'] = array('class' => 'page-link');
-
-        // initialize pagination
-        $this->pagination->initialize($config);
-        $data['start'] = $this->uri->segment(3);
-        if (empty($data['start'])) {
-            $data['start'] = 0;
-        }
-
         $data['title'] = "Surat Rujukan";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $idPasien = $this->user->getPasienId($data['user']['id']);
+        $this->db->select('pasien.id');
+        $this->db->from('pasien');
+        $this->db->join('user', '`pasien`.`user_id` = `user`.`id`');
+        $this->db->where('`user`.`id`', $data['user']['id']);
+        $pasien_id = $this->db->get()->row()->id;
 
-
-        //tampilkan semua data pasien per page
-        $data['tampildata'] = $this->user->tampilDataRujukan($config['per_page'], $data['start'], $idPasien);
-        // var_dump($data['tampildata']);
-        // exit;
-
-
+        $data['suratrujukan'] = $this->surat->getSuratRujukanPerPasien($pasien_id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -225,59 +122,30 @@ class Pasien extends CI_Controller
 
     public function antrian()
     {
-        $data['cari'] = $this->input->post('cari', true);
-        $data['start'] = $this->uri->segment(3);
-        $data['tampildata'] = '';
+        $data['pilih_dokter'] = $this->db->get('dokter')->result_array();
 
-        // cek apakah data kosong
-        if (isset($data['cari']) && !empty($data['cari'])) {
-            // kalau tidak cari data sesuai kata cari
-            $data['tampildata'] = $this->user->tampilDataAntrianCari($data['cari']);
+        if ($this->input->post('tombolpilihtanggal')) {
+            $data['tanggalantrian'] = $this->input->post('tanggalantrian');
+            $data['dokter_terpilih'] = $this->input->post('dokter_id');
         } else {
-            $config['base_url'] = 'http://localhost/puskesmas-bisa/pasien/antrian';
-            $config['total_rows'] = $this->user->countSemuaAntrian();
-            $config['per_page'] = 10;
-
-            // styling pagination
-            $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-            $config['full_tag_close'] = '</ul></nav>';
-
-            $config['first_link'] = 'First';
-            $config['first_tag_open'] = '<li class="page-item">';
-            $config['first_tag_close'] = '</li>';
-
-            $config['last_link'] = 'Last';
-            $config['last_tag_open'] = '<li class="page-item">';
-            $config['last_tag_close'] = '</li>';
-
-            $config['next_link'] = '&raquo';
-            $config['next_tag_open'] = '<li class="page-item">';
-            $config['next_tag_close'] = '</li>';
-
-            $config['prev_link'] = '&laquo';
-            $config['prev_tag_open'] = '<li class="page-item">';
-            $config['prev_tag_close'] = '</li>';
-
-            $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-            $config['cur_tag_close'] = '</a></li>';
-
-            $config['num_tag_open'] = '<li class="page-item">';
-            $config['num_tag_close'] = '</li>';
-
-            $config['attributes'] = array('class' => 'page-link');
-
-            // initialize pagination
-            $this->pagination->initialize($config);
-            $data['start'] = $this->uri->segment(3);
-            if (empty($data['start'])) {
-                $data['start'] = 0;
-            }
-            //tampilkan semua data pasien per page
-            $data['tampildata'] = $this->user->tampilDataAntrian($config['per_page'], $data['start']);
+            $data['dokter_terpilih'] = 1;
+            $data['tanggalantrian'] = date('d/m/Y');
         }
+
+        $data['nama_dokter'] = $this->db->get_where('dokter', array('id' => $data['dokter_terpilih']))->row()->nama_gelar;
+
+        $data['jadwal'] = $this->antri->getAntrian($data['tanggalantrian'], $data['dokter_terpilih']);
+
+
 
         $data['title'] = "Antrian";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->db->select('pasien.id');
+        $this->db->from('pasien');
+        $this->db->join('user', '`pasien`.`user_id` = `user`.`id`');
+        $this->db->where('`user`.`id`', $data['user']['id']);
+        $data['pasien_id'] = $this->db->get()->row()->id;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -286,16 +154,21 @@ class Pasien extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function buat_antrian($id)
+    public function buat_antrian()
     {
         $this->load->model('Antrian_m');
         $data['title'] = "Buat Antrian";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         // $data['antrian'] = $this->db->get('dokter')->result_array();
-        $data['dokter'] = $this->Antrian_m->getJadwalById($id);
-        $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
-        // $this->form_validation->set_rules('nama_dokter', 'Nama Dokter', 'required');
-        // $this->form_validation->set_rules('spesialis', 'Spesialis', 'required');
+        if ($this->input->post('buatantrian')) {
+            $data['tanggalantrianpilih'] = $this->input->post('tanggalantrianpilih');
+            $data['jampilih'] = $this->input->post('jampilih');
+            $data['dokter_id'] = $this->input->post('dokter_id');
+            $data['pasien_id'] = $this->input->post('pasien_id');
+            $data['no_antrian'] = $this->input->post('no_antrian');
+        }
+
+        $data['nama_dokter_terpilih'] = $this->db->get_where('dokter', array('id' => $data['dokter_id']))->row()->nama_gelar;
         $this->form_validation->set_rules('jam', 'jam', 'required');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
@@ -304,7 +177,7 @@ class Pasien extends CI_Controller
             $this->load->view('pasien/buat_antrian', $data);
             $this->load->view('templates/footer', $data);
         } else {
-            $this->Antrian_m->buatAntrian();
+            $this->antri->buatAntrian();
             redirect('pasien/antrian');
         }
     }
@@ -346,6 +219,22 @@ class Pasien extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('pasien/lihat_rekam_medik', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function detail_rujukan($id)
+    {
+        $data['title'] = "Detail Rujukan";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['suratrujukan'] = $this->surat->getSuratRujukanById($id);
+
+        $data['nama_dokter'] = $this->db->get_where('dokter', array('id' => $data['suratrujukan']['dokter_id']))->row()->nama_gelar;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pasien/detail_rujukan', $data);
         $this->load->view('templates/footer', $data);
     }
 }
