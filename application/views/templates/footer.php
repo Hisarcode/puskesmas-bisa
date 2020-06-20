@@ -97,6 +97,30 @@
         });
     });
 </script>
+<script>
+    $(function() {
+        $("#tanggalpembuatan").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1950:2020',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+        });
+    });
+</script>
+<script>
+    $(function() {
+        $("#tanggalkadaluwarsa").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1950:2020',
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+        });
+    });
+</script>
 </body>
 
 </html>
