@@ -182,4 +182,9 @@ class User_m extends CI_Model
         //join rekam medik setelah ini
         return $this->db->get()->result_array();
     }
+
+    public function getDokterId($userId)
+    {
+        return $this->db->get_where('dokter', array('user_id' => $userId))->row()->id;
+    }
 }

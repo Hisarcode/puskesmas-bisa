@@ -54,4 +54,13 @@ class Obat_m extends CI_Model
     {
         return $this->db->get('obat')->num_rows();
     }
+    public function getListObat()
+    {
+        //harusnya menggunakan db pasien bukan user
+        $this->db->select('*');
+        $this->db->from('obat');
+
+        //join rekam medik setelah ini
+        return $this->db->get()->result_array();
+    }
 }

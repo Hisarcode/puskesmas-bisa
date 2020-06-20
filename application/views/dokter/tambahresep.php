@@ -1,67 +1,62 @@
-<!-- Begin Page Content -->
 <div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+    <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
 
     <div class="row">
-        <div class="col-lg">
-            <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?php if ($this->session->flashdata('category_error')) : ?>
-                <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
-            <?php endif; ?>
+        <div class="col-lg-6">
+            <?= $this->session->flashdata('category_success'); ?>
 
-            <p>
-                <form action="<?= base_url('dokter/tambahresep/'); ?>" method="POST">
-                    <table class="table table-striped">
-                        <tr>
-                            <td>
-                                <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
-                            </td>
-                            <td>
-                                <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </p>
+            <form action="<?= base_url('dokter/tambahresep') ?>" method="POST">
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Alamat</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($tampildata as $dp) : ?>
-                        <tr>
-                            <th scope="row"><?= ++$start; ?></th>
-                            <td><?= $dp['username']; ?></td>
-                            <td><?= $dp['nama']; ?></td>
-                            <td><?= $dp['alamat']; ?></td>
-                            <td>
-                                <a href="<?= base_url(); ?>dokter/buatreseppasien/<?= $dp['id']; ?>" class="badge badge-primary" data-id="<?= $dp['id']; ?>">Buat Resep</a>
-                            </td>
 
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                <div class="form-group">
+                    <label for="pasien_id">Pilih Pasien</label>
+                    <select class="selectpicker form-control" name="pasien_id" id="pasien_id" data-live-search="true">
 
-            <?= $this->pagination->create_links(); ?>
+                        <?php foreach ($pilih_pasien as $pas) : ?>
+                            <option value="<?= $pas['id']; ?>" data-tokens="<?= $pas['nama']; ?>"><?= $pas['nama']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="obat_id">Pilih Obat</label>
+                    <select class="selectpicker form-control" name="obat_id" id="obat_id" data-live-search="true">
 
+                        <?php foreach ($pilih_obat as $ob) : ?>
+                            <option value="<?= $ob['id']; ?>" data-tokens="<?= $ob['nama_obat']; ?>"><?= $ob['nama_obat']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="aturan" name="aturan" placeholder="Aturan pemakaian">
+                    <?= form_error('aturan', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="catatan" name="catatan" placeholder="Catatan">
+                </div>
+
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-user" name="tanggalpembuatan" id="tanggalpembuatan" placeholder="Tanggal pembuatan" autocomplete="off">
+                    </div>
+                    <?= form_error('tanggalpembuatan', '<small class="text-danger pl-3">', '</small>'); ?>
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-user" name="tanggalkadaluwarsa" id="tanggalkadaluwarsa" placeholder="Tanggal kadaluwarsa" autocomplete="off">
+                    </div>
+                    <?= form_error('tanggalkadaluwarsa', '<small class="text-danger pl-3">', '</small>'); ?>
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Tambah Resep</button>
+                </div>
+
+            </form>
         </div>
     </div>
-
 </div>
-<!-- /.container-fluid -->
-
 </div>
-<!-- End of Main Content -->

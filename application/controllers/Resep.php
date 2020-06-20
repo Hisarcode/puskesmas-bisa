@@ -7,6 +7,8 @@ class Resep extends CI_Controller
     {
         parent::__construct();
         $this->load->library('pdf');
+        $this->load->model('SuratRujukan_m', 'surat');
+        $this->load->model('User_m', 'user');
     }
 
     public function reseppasien()
