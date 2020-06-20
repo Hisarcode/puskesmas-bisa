@@ -91,7 +91,7 @@ class Dokter extends CI_Controller
         $this->form_validation->set_rules('aturan', 'Aturan pemakaian', 'required|trim');
         $this->form_validation->set_rules('tanggalkadaluwarsa', 'Tanggal kadaluwarsa', 'required');
         $this->form_validation->set_rules('tanggalpembuatan', 'Tanggal pembuatan', 'required');
-        $idDokter = $this->user->getDokterId($data['user']['id']);
+        $idDokter = $this->user->getUserById($data['user']['id']);
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
