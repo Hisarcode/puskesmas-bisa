@@ -3,8 +3,7 @@
     <?php $jam = []; ?>
     <?php foreach ($jadwal as $jd) {
         array_push($jam, $jd['jam']);
-    };
-    var_dump($jam) ?>
+    }; ?>
 
 
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
@@ -61,15 +60,6 @@
 
                     <?php for ($x = 0; $x < 10; $x++) { ?>
                         <tr>
-<<<<<<< HEAD
-                            <th scope="row"><?= ++$start; ?></th>
-                            <td hidden><?= $jdw['user_id']; ?></td>
-                            <td><?= $jdw['nama_gelar']; ?></td>
-                            <td><?= $jdw['jenis_dokter']; ?></td>
-                            <td>
-                                <a href="<?= base_url(); ?>pasien/editantrian/<?= $jdw['id']; ?>" class="badge badge-primary tampilModalEditAntrian" data-toggle="modal" data-target="#tambahAntrianModal" data-id="<?= $jdw['id']; ?>">+ Buat Antrian</a>
-                            </td>
-=======
                             <td scope="row"><?= $jamloop ?></td>
                             <td scope="row"><?= $nama_dokter ?></td>
                             <td scope="row"><?= $x + 1 ?></td>
@@ -93,7 +83,6 @@
 
                                 </td>
                             <?php endif ?>
->>>>>>> 6eea737b672acec5c9a892f14626a387f93a86a5
                         </tr>
                         <?php $jamloop = date('H.i', strtotime('+30 minutes', strtotime($jamloop))); ?>
 
