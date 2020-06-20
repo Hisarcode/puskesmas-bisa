@@ -7,11 +7,11 @@
         <div class="col-lg-6">
             <!-- penting untuk form -->
             <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Tambah User Baru</h1>
+                <h1 class="h4 text-gray-900 mb-4">Edit Data User</h1>
             </div>
             <form class="user" method="POST" action="<?= base_url('admin/tambah_user'); ?>">
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= set_value('nama'); ?>">
+                    <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= $user['nama']; ?>">
                     <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
 
@@ -19,7 +19,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Options</label>
                     </div>
-                    <select class="custom-select" id="role_id" name="role_id" value="<?= set_value('role_id'); ?>">
+                    <select class="custom-select" id="role_id" name="role_id" value="<?= $user['role_id']; ?>">
                         <option selected>Masukan Kategori User</option>
                         <option value="1">Admin</option>
                         <option value="2">Dokter</option>
@@ -31,30 +31,30 @@
 
 
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Masukkan Nomor Induk Kependudukan" value="<?= set_value('nik'); ?>">
+                    <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Masukkan Nomor Induk Kependudukan" value="<?= $user['nik']; ?>">
                     <?= form_error('nik', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="alamat" name="alamat" placeholder="Masukkan alamat" value="<?= set_value('alamat'); ?>">
+                    <input type="text" class="form-control form-control-user" id="alamat" name="alamat" placeholder="Masukkan alamat" value="<?= $user['alamat']; ?>">
                     <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
 
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control form-control-user" name="tanggallahir" id="tanggallahir" placeholder="Tanggal" autocomplete="off">
+                        <input type="text" class="form-control form-control-user" name="tanggallahir" id="tanggallahir" placeholder="Tanggal" autocomplete="off" value="<?= $user['alamat']; ?>">
                     </div>
                     <?= form_error('tanggallahir', '<small class="text-danger pl-3">', '</small>'); ?>
                     <!-- /.input group -->
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Masukkan Email" value="<?= set_value('email'); ?>">
+                    <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Masukkan Email" value="<?= $user['email']; ?>">
                     <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Masukkan Username" value="<?= set_value('username'); ?>">
+                    <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Masukkan Username" value="<?= $user['username']; ?>">
                     <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
 
@@ -67,13 +67,15 @@
                         <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-user btn-block">
-                    Buat Akun
+
+                <a type="button" class="btn btn-secondary btn-user" href="<?= base_url('admin/manajemenuser') ?>">
+                    Batal
+                </a>
+                <button type="submit" class="btn btn-primary btn-user">
+                    Edit User
                 </button>
             </form>
-            <div class="card-footer small text-muted">
-                * required fields
-            </div>
+
         </div>
     </div>
 </div>
