@@ -3,12 +3,7 @@
     <?php $jam = []; ?>
     <?php foreach ($jadwal as $jd) {
         array_push($jam, $jd['jam']);
-<<<<<<< HEAD
-    };
-    ?>
-=======
     }; ?>
->>>>>>> 61b2e4f9865f789e380af5cde119c803470981d4
 
 
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
