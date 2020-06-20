@@ -11,7 +11,7 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahRoleModal">Tambah Role Baru</a>
+            <a href="" class="btn btn-primary mb-3 tambahRoleBtn" data-toggle="modal" data-target="#tambahRoleModal">Tambah Role Baru</a>
 
             <table class="table table-hover">
                 <thead>
@@ -29,8 +29,6 @@
                             <td><?= $r['role']; ?></td>
                             <td>
                                 <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-warning">Akses</a>
-                                <a href="" class="badge badge-success">Edit</a>
-                                <a href="" class="badge badge-danger">Delete</a>
                             </td>
                         </tr>
                         <?php $i++;  ?>
@@ -61,6 +59,7 @@
             </div>
             <form action="<?= base_url('admin/role'); ?>" method="POST">
                 <div class="modal-body">
+                    <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <input type="text" class="form-control" id="role" name="role" placeholder="Nama Role">
                     </div>

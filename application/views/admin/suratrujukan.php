@@ -5,7 +5,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg">
             <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?php if ($this->session->flashdata('category_error')) : ?>
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
@@ -15,8 +15,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th scope="col">Tanggal</th>
                         <th scope="col">Pasien</th>
-                        <!-- <th scope="col">Dokter</th> -->
                         <th scope="col">Tujuan</th>
                         <th scope="col">Aksi</th>
                     </tr>
@@ -25,9 +25,10 @@
                     <?php $i = 1; ?>
                     <?php foreach ($suratrujukan as $sr) : ?>
                         <tr>
+                            <td scope="row"><?= $sr['date_created']; ?></td>
                             <td scope="row"><?= $sr['nama']; ?></td>
-                            <td><?= $sr['tujuan']; ?></td>
-                            <td>
+                            <td scope="row"><?= $sr['tujuan']; ?></td>
+                            <td scope="row">
                                 <a href="<?= base_url(); ?>suratrujukan/editsuratrujukan" class="badge badge-success tampilModalEditSuratRujukan" data-toggle="modal" data-target="#tambahSuratRujukanModal" data-id="<?= $sr['id']; ?>">Edit</a>
                                 <a href="" class="badge badge-danger">Delete</a>
                                 <a href="" class="badge badge-info">Print</a>

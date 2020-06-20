@@ -11,27 +11,37 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahSuratRujukanModal">Tambah Surat Baru</a>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Pasien</th>
-                        <!-- <th scope="col">Dokter</th> -->
+                        <th scope="col">#</th>
+                        <th scope="col">No Surat</th>
                         <th scope="col">Tujuan</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody>
+                    <?php if (empty($suratrujukan)) : ?>
+                        <tr>
+                            <td colspan=5>
+                                <div class="alert alert-danger" role="alert">
+                                    Data Tidak ditemukan
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif ?>
                     <?php $i = 1; ?>
                     <?php foreach ($suratrujukan as $sr) : ?>
                         <tr>
-                            <td scope="row"><?= $sr['nama']; ?></td>
+                            <td scope="row"><?= $i; ?></td>
+                            <td scope="row"><?= $sr['nomor_surat']; ?></td>
                             <td><?= $sr['tujuan']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>pasien/detail_rujukan/<?= $dr['id']; ?>" class="badge badge-primary" data-id="<?= $dr['id']; ?>">Lihat Surat</a>
+                                <a href="<?= base_url(); ?>pasien/detail_rujukan/<?= $sr['id']; ?>" class="badge badge-primary" data-id="<?= $sr['id']; ?>">Lihat Surat</a>
                             </td>
                         </tr>
+                        <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
 
@@ -45,62 +55,3 @@
 
 </div>
 <!-- End of Main Content -->
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="tambahSuratRujukanModal" tabindex="-1" role="dialog" aria-labelledby="tambahSuratRujukanModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tambahSuratRujukanModalLabel">Tambah Surat Rujukan Baru</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="<?= base_url('suratrujukan'); ?>" method="POST">
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label for="no_surat">Nomor Surat</label>
-                        <input type="text" class="form-control" id="no_surat" name="no_surat" readonly value="<?= $nomor_surat; ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pasien_id">Pilih Pasien</label>
-                        <select class="selectpicker form-control" name="pasien_id" id="pasien_id" data-live-search="true">
-
-                            <?php foreach ($pilih_pasien as $pas) : ?>
-                                <option value="<?= $pas['id']; ?>" data-tokens="<?= $pas['nama']; ?>"><?= $pas['nama']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="dokter_id">Pilih Dokter</label>
-                        <select name="dokter_id" id="dokter_id" class="form-control">
-                            <option value="">Pilih Dokter</option>
-
-                            <?php foreach ($pilih_dokter as $dr) : ?>
-                                <option value="<?= $dr['id']; ?>"><?= $dr['nama_gelar']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="form-group mt-1">
-                        <input type="text" class="form-control" id="tujuan" name="tujuan" placeholder="Masukkan Tujuan Surat">
-                    </div>
-
-                    <div class="form-group">
-                        <textarea class="form-control" id="keterangan" name="keterangan" rows="5" placeholder="Masukkan Keterangan apabila ada"></textarea>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

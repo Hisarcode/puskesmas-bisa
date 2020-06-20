@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('User_m', 'user');
     }
 
     public function index()
@@ -214,35 +215,68 @@ class Admin extends CI_Controller
 
     public function tambah_user()
     {
-        $data['title'] = "Tambah User";
+
+        $data['title'] = 'Tambah User';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['tambah_user'] = $this->db->get('user')->result_array();
 
+        $user = $this->user;
+        $validation = $this->form_validation;
+        $validation->set_rules($user->rules());
 
+        if ($validation->run()) {
+            $user->insertDataUser();
+            $this->session->set_flashdata('category_success', 'Data User Berhasil Ditambahkan');
+            redirect('manajemenuser');
+        }
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/tambah_user', $data);
+        $this->load->view('admin/tambah_user');
         $this->load->view('templates/footer', $data);
     }
 
-    public function edit_user()
+    public function getEditUser()
     {
-        $data['title'] = "Edit User";
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['edit_user'] = $this->db->get('user')->result_array();
+        $this->load->model('User_m', 'user');
+        echo json_encode($this->user->getUserById($_POST['id']));
+    }
 
+    public function edit_user($id)
+    {
+        if (!isset($id)) redirect('manajemenuser');
+        $user = $this->user;
+        $validation = $this->form_validation;
+        $validation->set_rules($user->rules());
 
+        if ($validation->run()) {
+            $user->editDataUser();
+            $this->session->set_flashdata('category_success', 'Data Berhasil Diubah');
+            redirect('manajemenuser');
+        }
+        $data["title"] = "Edit Data";
+        $data["user"] = $user->getUserById($id);
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/edit_user', $data);
+        $this->load->view('admin/edit_user');
         $this->load->view('templates/footer', $data);
     }
 
-    public function delete_user()
+    public function delete_user($id)
     {
-        $data['title'] = "Delete User";
+        if (!isset($id)) show_404();
+        if ($this->user->hapusDataBangunan($id) > 0) {
+            $this->session->set_flashdata('category_success', 'Data Berhasil Dihapus');
+            redirect('bangunan');
+        } else {
+            $this->session->set_flashdata('category_error', 'Data Gagal Dihapus');
+            redirect('bangunan');
+        }
+    }
+
+    public function konfigurasi()
+    {
+        $data['title'] = "Konfigurasi";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['delete_user'] = $this->db->get('user')->result_array();
 
@@ -250,7 +284,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/delete_user', $data);
+        $this->load->view('admin/konfigurasi', $data);
         $this->load->view('templates/footer', $data);
     }
 }

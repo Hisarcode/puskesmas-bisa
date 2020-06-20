@@ -91,7 +91,7 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '1950:2020',
-            format: 'yyyy-mm-dd',
+            dateFormat: 'dd/mm/yy',
             autoclose: true,
             todayHighlight: true,
         });

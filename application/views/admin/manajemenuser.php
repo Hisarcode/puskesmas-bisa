@@ -11,8 +11,11 @@
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
 
+            <?php if ($this->session->flashdata('category_success')) : ?>
+                <div class="alert alert-success" role="alert"> <?= $this->session->flashdata('category_success') ?> </div>
+            <?php endif; ?>
+
             <a href="tambah_user" class="btn btn-primary mb-3">Tambah User Baru</a>
-            <a href="lihat_user" class="btn btn-primary mb-3">Lihat User</a>
 
             <table class="table table-hover">
                 <thead>
@@ -33,9 +36,8 @@
                             <td><?= $mu['username']; ?></td>
                             <td><?= $mu['role_id']; ?></td>
                             <td>
-                                <a href="" class="badge badge-primary">Detail</a>
-                                <a href="edit_user" class="badge badge-success">Edit</a>
-                                <a href="delete_user" class="badge badge-danger">Delete</a>
+                                <a href="<?= base_url(); ?>admin/edit_user/<?= $mu['id']; ?>" class="badge badge-success">Edit</a>
+                                <a href="<?= base_url(); ?>admin/delete_user/<?= $mu['id']; ?>" class="badge badge-danger" onclick="return confirm('Yakin?');">Delete</a>
                             </td>
                         </tr>
                         <?php $i++;  ?>
@@ -51,30 +53,3 @@
 
 </div>
 <!-- End of Main Content -->
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="tambahMenuModal" tabindex="-1" role="dialog" aria-labelledby="tambahMenuModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tambahMenuModalLabel">Tambah Menu Baru</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="<?= base_url('menu'); ?>" method="POST">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="menu" name="menu" placeholder="Nama Menu">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

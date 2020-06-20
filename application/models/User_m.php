@@ -176,15 +176,90 @@ class User_m extends CI_Model
     public function getListPasien()
     {
         //harusnya menggunakan db pasien bukan user
-        $this->db->select('*');
+        $this->db->select('pasien.*,user.nama');
         $this->db->from('pasien');
         $this->db->join('user', '`user`.`id` = `pasien`.`user_id`');
         //join rekam medik setelah ini
         return $this->db->get()->result_array();
     }
-
-    public function getDokterId($userId)
+    public function getUserById($id)
     {
-        return $this->db->get_where('dokter', array('user_id' => $userId))->row()->id;
+        return $this->db->get_where('user', array('id' => $id))->row_array();
+    }
+
+    private $_table = 'user';
+    public $user_id;
+    public $nama;
+    public $email;
+    public $nomor_telepon;
+    public $image = "default.jpg";
+    public $namapengguna;
+    public $katasandi;
+    public $nik;
+    public $tanggallahir;
+    public $alamat;
+    public $role_id;
+    public $is_active;
+
+
+    public function rules()
+    {
+
+        return [
+            [
+                'field' => 'nama',
+                'label' => 'Nama Bangunan',
+                'rules' => 'required'
+            ],
+
+            [
+                'field' => 'lat',
+                'label' => 'Latitude Bangunan',
+                'rules' => 'required'
+            ]
+        ];
+    }
+
+    public function insertDataUser()
+    {
+        $post = $this->input->post();
+        $this->nama;
+        $this->email;
+        $this->nomor_telepon;
+        $this->image = "default.jpg";
+        $this->namapengguna;
+        $this->katasandi;
+        $this->nik;
+        $this->tanggallahir;
+        $this->alamat;
+        $this->role_id;
+        $this->is_active;
+        $this->bangunan_nama =  $post['nama'];
+        $this->bangunan_lat =  $post['lat'];
+        return $this->db->insert($this->_table, $this);
+    }
+
+    public function editDataUser($data)
+    {
+        $post = $this->input->post();
+        $this->user_id = $post["id"];
+        $this->nama;
+        $this->email;
+        $this->nomor_telepon;
+        $this->image = "default.jpg";
+        $this->namapengguna;
+        $this->katasandi;
+        $this->nik;
+        $this->tanggallahir;
+        $this->alamat;
+        $this->role_id;
+        $this->is_active;
+        $this->bangunan_nama =  $post['nama'];
+        $this->bangunan_lat =  $post['lat'];
+        return $this->db->update($this->_table, $this, array('user_id' => $post["id"]));
+    }
+    public function deleteUser($id)
+    {
+        return $this->db->delete($this->_table, array("user_id" => $id));
     }
 }
