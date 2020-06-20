@@ -17,13 +17,22 @@ class User_m extends CI_Model
         return $this->db->get('pasien')->num_rows();
     }
 
-    public function tampilDataPasienCari($cari)
+    public function tampilDataPasienCari($cari, $limit, $start = '0')
+    {
+        $query = "SELECT `pasien`.*, `user`.`username`, `user`.`nama`, `user`.`alamat`
+        FROM `pasien` JOIN `user`
+        ON `pasien`.`user_id` = `user`.`id` WHERE `user`.`username` OR `user`.`nama`  LIKE '%" . $cari . "%' ORDER BY `pasien`.`user_id` ASC LIMIT " . $start . "," . $limit;
+
+        return $this->db->query($query)->result_array();
+    }
+
+    public function countPasienCari($cari)
     {
         $query = "SELECT `pasien`.*, `user`.`username`, `user`.`nama`, `user`.`alamat`
         FROM `pasien` JOIN `user`
         ON `pasien`.`user_id` = `user`.`id` WHERE `user`.`username` OR `user`.`nama`  LIKE '%" . $cari . "%' ORDER BY `pasien`.`user_id` ASC";
 
-        return $this->db->query($query)->result_array();
+        return $this->db->query($query)->num_rows();
     }
 
     public function getPasienId($userId)

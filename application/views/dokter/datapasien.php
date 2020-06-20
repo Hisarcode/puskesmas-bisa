@@ -10,23 +10,23 @@
             <?php if ($this->session->flashdata('category_error')) : ?>
                 <div class="alert alert-danger" role="alert"> <?= $this->session->flashdata('category_error') ?> </div>
             <?php endif; ?>
-
+            <?= $tr; ?>
             <p>
-            <form action="<?= base_url('dokter/datapasien/'); ?>" method="POST">
-                <table class="table table-striped">
-                    <tr>
-                        <td>
-                            <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
-                        </td>
-                        <td>
-                            <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
-                        </td>
-                        <td>
-                            <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+                <form action="<?= base_url('dokter/datapasien/'); ?>" method="POST">
+                    <table class="table table-striped">
+                        <tr>
+                            <td>
+                                <label class="ml-5 mt-2" for="cari">Cari Data Pasien</label>
+                            </td>
+                            <td>
+                                <input value="<?php echo $cari; ?>" type="text" class="form-control" name="cari" id="cari" placeholder="silahkan cari data berdasarkan username/nama" autofocus>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-success" name="tombolcari">Cari</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </p>
 
             <table class="table table-hover">
@@ -47,14 +47,14 @@
                             <td><?= $dp['nama']; ?></td>
                             <td><?= $dp['alamat']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>dokter/detail/<?= $dp['id']; ?>" class="badge badge-primary" data-id="<?= $dp['id']; ?>">Detail</a> 
+                                <a href="<?= base_url(); ?>dokter/detail/<?= $dp['id']; ?>" class="badge badge-primary" data-id="<?= $dp['id']; ?>">Detail</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
-            <?= $this->pagination->create_links(); ?>
+            <?= $pagination; ?>
 
         </div>
     </div>
