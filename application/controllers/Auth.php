@@ -148,9 +148,36 @@ class Auth extends CI_Controller
         $data['title'] = "Ubah Password";
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $this->form_validation->set_rules('passwordlama', 'Pasword lama', 'required|trim');
-        $this->form_validation->set_rules('passwordbaru1', 'Pasword baru', 'required|trim|matches[passwordbaru2]');
-        $this->form_validation->set_rules('passwordbaru2', 'Ulangi password baru', 'required|trim|matches[passwordbaru1]');
+        $rules = [
+            [
+                'field' => 'passwordlama',
+                'label' => 'Password Lama',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => 'Password Lama Belum  Diisi'
+                ]
+            ],
+            [
+                'field' => 'passwordbaru1',
+                'label' => 'Password Baru',
+                'rules' => 'required|trim|matches[passwordbaru2]',
+                'errors' => [
+                    'required' => 'Password Baru Belum  Diisi',
+                    'matches' => 'Password Baru Tidak Sama'
+                ]
+            ],
+            [
+                'field' => 'passwordbaru2',
+                'label' => 'Ulangi Password Baru',
+                'rules' => 'required|trim|matches[passwordbaru1]',
+                'errors' => [
+                    'required' => 'Password Baru Belum  Diisi',
+                    'matches' => 'Password Baru Tidak Sama'
+                ]
+            ],
+        ];
+        $this->form_validation->set_rules($rules);
+
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
