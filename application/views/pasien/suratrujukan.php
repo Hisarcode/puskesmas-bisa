@@ -39,6 +39,8 @@
                             <td><?= $sr['tujuan']; ?></td>
                             <td>
                                 <a href="<?= base_url(); ?>pasien/detail_rujukan/<?= $sr['id']; ?>" class="badge badge-primary" data-id="<?= $sr['id']; ?>">Lihat Surat</a>
+                                <a href="<?= base_url(); ?>suratrujukan/printsuratrujukan/<?= $sr['id']; ?>" class="badge badge-info">Print</a>
+
                             </td>
                         </tr>
                         <?php $i++; ?>

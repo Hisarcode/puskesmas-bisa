@@ -74,11 +74,11 @@ $pdf->Ln(10);
 $pdf->SetFont('helvetica', 'BU', 13);
 $pdf->Cell(0, 0, "Surat Rujukan", 0, 1, 'C', 0, '', 0);
 $pdf->SetFont('helvetica', '', 13);
-$pdf->Cell(0, 0, 'No . XX/PB/003', 0, 1, 'C', 0, '', 1);
+$pdf->Cell(0, 0, $suratrujukan['nomor_surat'], 0, 1, 'C', 0, '', 1);
 
 $pdf->Ln(10);
 $pdf->Cell(45, 0, 'Kepada Yang Terhormat', 0, 1, 'C', 0, '', 4);
-$pdf->Cell(45, 0, 'Laboratorium RS Soedarso', 0, 1, 'C', 0, '', 4);
+$pdf->Cell(45, 0, $suratrujukan['tujuan'], 0, 1, 'C', 0, '', 4);
 
 $pdf->Ln(10);
 $pdf->Cell(0, 0, 'Dengan hormat,', 0, 1, 'L', 0, '', 0);
@@ -89,24 +89,24 @@ $html = '<table style="margin-left:auto;margin-right:auto;">
 <tr >
 <td style="width:10%"></td>
 <td><strong>NAMA</strong></td>
-<td colspan="2">Gusti Muhammad Furkan Azmi</td>
+<td colspan="2">' . $suratrujukan['nama'] . '</td>
 </tr>
 <tr>
 <td style="width:10%"></td>
 <td><strong>Umur</strong></td>
-<td> 24 Tahun</td>
+<td>' . $umur_pasien . '</td>
 <td></td>
 </tr>
 <tr>
 <td style="width:10%"></td>
 <td><strong>NIK</strong></td>
-<td>1234567890123456</td>
+<td>' . $suratrujukan['nik'] . '</td>
 <td></td>
 </tr>
 <tr>
 <td style="width:10%"></td>
 <td><strong>KETERANGAN</strong></td>
-<td colspan="2">Radang gusi memerlukan pemeriksaan dengan teknologi tinggi</td>
+<td colspan="2">' . $suratrujukan['keterangan'] . '</td>
 </tr>
 </table>';
 $pdf->writeHTML($html, true, false, true, false, '');
@@ -114,14 +114,13 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->Cell(0, 0, 'Demikian rujukan ini kami kirim, atas perhatiannya diucapkan terimakasih', 0, 1, 'L', 0, '', 0);
 
 $pdf->Ln(15);
-$pdf->Cell(50, 0, 'Pontianak , 04/06/2020', 0, 1, 'C', 0, '', 0);
-$pdf->Cell(50, 0, 'YANG MERUJUK', 0, 1, 'C', 0, '', 0);
+$pdf->Cell(60, 0, 'Pontianak , ' . $suratrujukan['date_created'], 0, 1, 'C', 0, '', 0);
+$pdf->Cell(60, 0, 'YANG MERUJUK', 0, 1, 'C', 0, '', 0);
 $pdf->Ln(30);
 
 $pdf->SetFont('helvetica', 'BU', 13);
-$pdf->Cell(50, 0, 'dr.Hisarman Saragih', 0, 1, 'C', 0, '', 4);
-$pdf->SetFont('helvetica', 'B', 13);
-$pdf->Cell(50, 0, 'NIP.', 0, 1, 'L', 0, '', 0);
+$pdf->Cell(60, 0, $nama_dokter, 0, 1, 'C', 0, '', 4);
+
 
 
 
