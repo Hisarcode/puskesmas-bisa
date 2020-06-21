@@ -45,8 +45,10 @@
 
 
                 <div class="form-group">
+                    <a type="button" href="<?= base_url('pasien/antrian') ?>" class="btn btn-secondary">Batal</a>
                     <button type="submit" class="btn btn-primary">Buat</button>
                 </div>
+
             </form>
         </div>
     </div>
