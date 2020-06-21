@@ -3,6 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+    <a href="<?= base_url() ?>admin/rekam_medik" class="btn btn-primary mb-3">+ Buat Rekam Medik</a>
 
     <div class="row">
         <div class="col-lg">
@@ -18,15 +19,13 @@
                     <?php foreach ($history as $hty) : ?>
                         <tr>
                             <td><?= $hty['no_rekam_medik']; ?></td>
-                            <td><?= $hty['date_created']; ?></td>
+                            <td><?= date('d/m/Y', strtotime($hty['date_created'])); ?></td>
                             <td>
-                                <a href="<?= base_url() ?>admin/lihat_rekam_medik/<?= $hty['id']; ?>/<?= $hty['pasien_id']; ?>/<?= $hty['dokter_id']; ?>" class="badge badge-success">Lihat Rekam Medik</a>
-                            </td>
+                                <a href="<?= base_url() ?>admin/lihat_rekam_medik/<?= $hty['id']; ?>/<?= $hty['pasien_id']; ?>/<?= $hty['dokter_id']; ?>" class="badge badge-primary">Lihat Rekam Medik</a> </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <a href="<?= base_url() ?>admin/rekam_medik" class="btn btn-primary mb-3">+ Buat Rekam Medik</a>
         </div>
     </div>
 
