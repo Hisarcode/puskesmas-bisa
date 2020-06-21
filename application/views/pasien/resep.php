@@ -34,7 +34,9 @@
                             <td><?= $dr['jenis_dokter']; ?></td>
                             <td><?= $dr['date_expired']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>pasien/resep/<?= $dr['id']; ?>" class="badge badge-success tampilModalResepbtn" data-toggle="modal" data-target="#tampilResepModal" data-id="<?= $dr['date_created']; ?>">Lihat Resep</a>
+                                <a href="<?= base_url(); ?>pasien/resep/<?= $dr['id']; ?>" class="badge badge-primary tampilModalResepbtn" data-toggle="modal" data-target="#tampilResepModal" data-id="<?= $dr['date_created']; ?>">Lihat Resep</a>
+                                <a href="<?= base_url(); ?>suratrujukan/printsuratrujukan/<?= $dr['id']; ?>" class="badge badge-info">Print</a>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>

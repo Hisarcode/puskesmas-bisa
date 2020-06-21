@@ -96,6 +96,7 @@ class User_m extends CI_Model
         FROM `resep` 
         JOIN `dokter`ON `resep`.`dokter_id` = `dokter`.`id` 
         JOIN `user` ON `dokter`.`user_id` = `user`.`id`
+        JOIN `obat` ON `resep`.`obat_id` = `obat`.`id`
         WHERE `resep`.`date_created` LIKE '%" . $hari . "%' 
         ORDER BY `resep`.`date_created` ASC";
 
